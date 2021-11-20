@@ -130,6 +130,8 @@ function resetBoard() {
         box.textContent = '';
         box.style.color = null;
     }
-    bottomBanner.textContent = '';
+    bottomBanner.textContent = 'Current Player: Player One';
+    bottomBanner.style.color = null;
+    activePlayer = PLAYERS.playerOne;
     winningState = false;
 }

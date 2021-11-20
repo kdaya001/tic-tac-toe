@@ -1,6 +1,8 @@
 # tic-tac-toe
 
 GA SEI - Project 1
+* Live Link: [here](https://kdaya001.github.io/tic-tac-toe/)
+* Font: [here](https://fonts.google.com/specimen/M+PLUS+2)
 
 ## Technical Requirements:
 * Render a game in the browser

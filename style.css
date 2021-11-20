@@ -4,6 +4,7 @@ body * {
 
 body {
     background-color: rgb(152, 218, 196);
+    font-family: 'M PLUS 2', sans-serif;
 }
 
 #outer-wrapper {
@@ -43,6 +44,7 @@ h3 {
     display: flex;
     height: 8em;
     width: 8em;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 #box-1, #box-2, #box-3 {
