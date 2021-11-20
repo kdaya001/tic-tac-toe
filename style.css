@@ -1,0 +1,21 @@
+body * {
+    box-sizing: border-box;
+}
+
+#outer-wrapper {
+    display:flex;
+    flex-direction: column;
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+#wrapper > * {
+    border: 1px black solid;
+    margin: 5px;
+    height: 5em;
+    width: 5em;
+}

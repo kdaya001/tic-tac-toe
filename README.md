@@ -1,4 +1,7 @@
 # tic-tac-toe
+
+GA SEI - Project 1
+
 ## Technical Requirements:
 * Render a game in the browser
 * Switch turns between more than one player
@@ -50,5 +53,6 @@
 * Create a function to add the active players token to chosen (empty) box
 * Add click event listeners to container div for the 3x3 grid (to utilise [bubbling](https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles))
     * Use event.target to set or get the value of the clicked box/inner `div`
+    * Use logic to ensure an existing selection cannot be overwritten
 * Track active player using a variable
 * Track player tokens in an object
