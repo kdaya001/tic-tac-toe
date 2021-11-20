@@ -5,10 +5,23 @@ const players = {
 
 let activePlayer = players.playerOne;
 
+//win conditions left to right, top to bottom, diagonal left to right
+const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
+
+
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
-        event.target.textContent = activePlayer; //TODO add and don't let overwrite
+        event.target.textContent = activePlayer; //TODO add style and don't let overwrite
         checkWinCondition();
     }
 });
@@ -33,7 +46,7 @@ function checkWinCondition() {
         };
     }
 
-    if (checkEndWinningState(results)) {
+    if (checkEndWinningState()) {
         setTimeout(function () {
             endGame(activePlayer);
         }, 1);
@@ -47,80 +60,15 @@ function checkWinCondition() {
 }
 
 function checkEndWinningState(results) {
-    if (
-        //check row 1
-        results.box1.player === results.box2.player &&
-        results.box2.player === results.box3.player &&
-        results.box1.player != '' &&
-        results.box2.player != '' &&
-        results.box3.player != ''
-    ) {
-        return true;
-    } else if (
-        //check row 2
-        results.box4.player === results.box5.player &&
-        results.box5.player === results.box6.player &&
-        results.box4.player != '' &&
-        results.box5.player != '' &&
-        results.box6.player != ''
-    ) {
-        return true;
-    } else if (
-        //check row 3
-        results.box7.player === results.box8.player &&
-        results.box8.player === results.box9.player &&
-        results.box7.player != '' &&
-        results.box8.player != '' &&
-        results.box9.player != ''
-    ) {
-        return true;
-    } else if (
-        //check column 1
-        results.box1.player === results.box4.player &&
-        results.box4.player === results.box7.player &&
-        results.box1.player != '' &&
-        results.box4.player != '' &&
-        results.box7.player != ''
-    ) {
-        return true;
-    } else if (
-        //check column 2
-        results.box2.player === results.box5.player &&
-        results.box5.player === results.box8.player &&
-        results.box2.player != '' &&
-        results.box5.player != '' &&
-        results.box8.player != ''
-    ) {
-        return true;
-    } else if (
-        //check column 3
-        results.box3.player === results.box6.player &&
-        results.box6.player === results.box9.player &&
-        results.box3.player != '' &&
-        results.box6.player != '' &&
-        results.box9.player != ''
-    ) {
-        return true;
-    } else if (
-        //check diagonal right to left
-        results.box1.player === results.box5.player &&
-        results.box5.player === results.box9.player &&
-        results.box1.player != '' &&
-        results.box5.player != '' &&
-        results.box9.player != ''
-    ) {
-        return true;
-    } else if (
-        //check diagonal left to right
-        results.box3.player === results.box5.player &&
-        results.box5.player === results.box7.player &&
-        results.box3.player != '' &&
-        results.box5.player != '' &&
-        results.box7.player != ''
-    ) {
-        return true;
-    } else {
-        return false;
+    const boxes = document.querySelectorAll('.box');
+    for (condition of winningConditions) {
+        if (
+            boxes[condition[0]].textContent === activePlayer &&
+            boxes[condition[1]].textContent === activePlayer &&
+            boxes[condition[2]].textContent === activePlayer
+        ) {
+            return true;
+        }
     }
 }
 
