@@ -1,4 +1,4 @@
-const players = { 
+const players = {
     playerOne: 'X',
     playerTwo: 'O',
 };
@@ -8,7 +8,7 @@ let activePlayer = players.playerOne;
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
-        event.target.textContent = activePlayer; //TODO add style and don't let overwrite
+        event.target.textContent = activePlayer; //TODO add and don't let overwrite
         checkWinCondition();
     }
 });
@@ -33,15 +33,22 @@ function checkWinCondition() {
         };
     }
 
-    if (checkEndState(results)) {
-        setTimeout(function(){endGame(activePlayer)},1);
+    if (checkEndWinningState(results)) {
+        setTimeout(function () {
+            endGame(activePlayer);
+        }, 1);
+    } else if (checkDrawState(results)) {
+        setTimeout(function () {
+            endGame(false);
+        }, 1);
     } else {
         changeActivePlayer();
     }
 }
 
-function checkEndState(results) {
+function checkEndWinningState(results) {
     if (
+        //check row 1
         results.box1.player === results.box2.player &&
         results.box2.player === results.box3.player &&
         results.box1.player != '' &&
@@ -50,23 +57,52 @@ function checkEndState(results) {
     ) {
         return true;
     } else if (
+        //check row 2
         results.box4.player === results.box5.player &&
         results.box5.player === results.box6.player &&
-        results.box3.player != '' &&
         results.box4.player != '' &&
-        results.box5.player != ''
+        results.box5.player != '' &&
+        results.box6.player != ''
     ) {
         return true;
-    } else if (         
+    } else if (
+        //check row 3
         results.box7.player === results.box8.player &&
         results.box8.player === results.box9.player &&
         results.box7.player != '' &&
         results.box8.player != '' &&
         results.box9.player != ''
-
-    ){
+    ) {
         return true;
     } else if (
+        //check column 1
+        results.box1.player === results.box4.player &&
+        results.box4.player === results.box7.player &&
+        results.box1.player != '' &&
+        results.box4.player != '' &&
+        results.box7.player != ''
+    ) {
+        return true;
+    } else if (
+        //check column 2
+        results.box2.player === results.box5.player &&
+        results.box5.player === results.box8.player &&
+        results.box2.player != '' &&
+        results.box5.player != '' &&
+        results.box8.player != ''
+    ) {
+        return true;
+    } else if (
+        //check column 3
+        results.box3.player === results.box6.player &&
+        results.box6.player === results.box9.player &&
+        results.box3.player != '' &&
+        results.box6.player != '' &&
+        results.box9.player != ''
+    ) {
+        return true;
+    } else if (
+        //check diagonal right to left
         results.box1.player === results.box5.player &&
         results.box5.player === results.box9.player &&
         results.box1.player != '' &&
@@ -74,19 +110,48 @@ function checkEndState(results) {
         results.box9.player != ''
     ) {
         return true;
+    } else if (
+        //check diagonal left to right
+        results.box3.player === results.box5.player &&
+        results.box5.player === results.box7.player &&
+        results.box3.player != '' &&
+        results.box5.player != '' &&
+        results.box7.player != ''
+    ) {
+        return true;
     } else {
         return false;
     }
 }
 
-function endGame() {
-    alert(`${activePlayer} wins`);
+function checkDrawState(results) {
+    if (
+        results.box1.player !== '' &&
+        results.box2.player !== '' &&
+        results.box3.player !== '' &&
+        results.box4.player !== '' &&
+        results.box5.player !== '' &&
+        results.box6.player !== '' &&
+        results.box7.player !== '' &&
+        results.box8.player !== '' &&
+        results.box9.player !== ''
+    ) {
+        return true;
+    }
+}
+
+function endGame(activePlayer) {
+    if (activePlayer === false) {
+        alert('It was a draw');
+    } else {
+        alert(`${activePlayer} wins`);
+    }
     resetBoard();
 }
 
 function resetBoard() {
     const boxes = document.querySelectorAll('.box');
-    for(box of boxes) {
+    for (box of boxes) {
         box.textContent = '';
     }
 }
