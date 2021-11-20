@@ -20,32 +20,56 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    background-color: beige;
+    border-radius: 30px;
 }
 
-@media screen and (min-width:436px) {
+@media screen and (min-width:385px) {
     #wrapper {
-        width: 436px;
+        width: 385px;
         margin:auto;
     }
 }
 
+#button-nav {
+    margin: auto;
+}
+
 h3 {
     text-align: center;
-    margin-right: 1em;
 }
 
 #wrapper > * {
     display: flex;
-    margin: 5px;
     height: 8em;
     width: 8em;
-    border-radius: 20px;
-    background-color: white;
+}
+
+#box-1, #box-2, #box-3 {
+    border-bottom: 1px solid black;
+}
+
+#box-1, #box-4, #box-7 {
+    border-right: 1px solid black;
+}
+
+#box-3, #box-6, #box-9 {
+    border-left: 1px solid black;
+}
+
+#box-7, #box-8, #box-9 {
+    border-top: 1px solid black;
 }
 
 .displayValue {
     margin: auto;
     font-size:100px;
+}
+
+button {
+    border-radius: 10px;
+    border: 0px none;
+    height: 2em;
 }
 
 /* .winner-straight:after{

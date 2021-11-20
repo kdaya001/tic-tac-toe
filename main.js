@@ -18,6 +18,10 @@ const PLAYER_BOARD = [
     null, null, null, null, null, null, null, null, null
 ];
 
+const bottomBanner = document.getElementById('bottom-banner');
+
+let winningState = false;
+
 let activePlayer = PLAYERS.playerOne;
 
 const resetButton = document.getElementById('reset');
@@ -29,7 +33,9 @@ resetButton.addEventListener('click', function () {
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
-        assignChosenValue(event);
+        if(!winningState) {
+            assignChosenValue(event);
+        }
     }
 });
 
@@ -46,14 +52,13 @@ function assignChosenValue(event) {
 
 function checkWinCondition() {
     const boxes = document.querySelectorAll('.box');
-
     if (checkEndWinningState(boxes)) {
         setTimeout(function () {
             endGame(activePlayer);
         }, 1);
     } else if (checkDrawState(boxes)) {
         setTimeout(function () {
-            endGame();
+            endGame(false);
         }, 1);
     } else {
         changeActivePlayer();
@@ -67,10 +72,17 @@ function checkEndWinningState(boxes) {
             boxes[condition[1]].textContent === activePlayer &&
             boxes[condition[2]].textContent === activePlayer
         ) {
+            changeColor(condition, boxes);
             return true;
         }
     }
     return false;
+}
+
+function changeColor(condition, boxes) {
+    for(let i = 0; i < 3; i++) {
+        boxes[condition[i]].style.color = "red";
+    }
 }
 
 function changeActivePlayer() {
@@ -93,11 +105,10 @@ function checkDrawState(boxes) {
     return true;
 }
 
-function endGame() {
+function endGame(activePlayer) {
     let winningPlayer;
-
     if (activePlayer === false) {
-        alert('It was a draw');
+        bottomBanner.textContent = "It was a draw";
     } else {
         for(let player in PLAYERS) {
             if(PLAYERS[player] === activePlayer) {
@@ -106,14 +117,19 @@ function endGame() {
                 winingPlayer = undefined;
             }
         }
-        alert(`${winningPlayer} wins`);
+        bottomBanner.textContent = `${winningPlayer} wins`;
+        winningState = true;
     }
-    resetBoard();
+    bottomBanner.style.fontSize = '30px';
+    bottomBanner.style.color = "red";
 }
 
 function resetBoard() {
     const boxes = document.querySelectorAll('.box');
     for (box of boxes) {
         box.textContent = '';
+        box.style.color = null;
     }
+    bottomBanner.textContent = '';
+    winningState = false;
 }
