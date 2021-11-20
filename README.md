@@ -9,7 +9,7 @@
 * Deploy your game online, where the rest of the world can access it
 * Use semantic markup for HTML and CSS (adhere to best practices)
 
-## Tech Used
+## Technology Used
 * HTML
 * CSS
 * Javascript
@@ -26,7 +26,7 @@
 ### Basic UI Layout (Wireframe) - TBC
 ![alt text](/images/basic-layout-wireframe.jpg)
 
-## Game Logic (high level):
+### Game Logic (high level):
 * Check win condition:
     * If row 1 matches; else
     * If row 2 matches: else
@@ -40,3 +40,15 @@
 * Track active player
 * Get the active box that is selected
 * Store player choices (TBC - DOM or JS Object)
+
+### Problem broken down (TBC - unordered):
+* Create a function for win condtion:
+    * Check if win conditions are met (3 in a row)
+    * Check if win conditions are met (3 in a column)
+    * Check if win conditions are met (3 diagonally)
+    * If win is triggered return the player that won otherwise return null
+* Create a function to add the active players token to chosen (empty) box
+* Add click event listeners to container div for the 3x3 grid (to utilise [bubbling](https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles))
+    * Use event.target to set or get the value of the clicked box/inner `div`
+* Track active player using a variable
+* Track player tokens in an object
