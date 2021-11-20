@@ -56,3 +56,7 @@ GA SEI - Project 1
     * Use logic to ensure an existing selection cannot be overwritten
 * Track active player using a variable
 * Track player tokens in an object
+
+
+### Assumptions
+* There is no way for a the non active player to win that is instigated by the active player. i.e. on the players turn, the player cannot allow the non-active player to win without the non active player making a selectin

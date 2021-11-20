@@ -17,7 +17,6 @@ const winningConditions = [
     [2, 4, 6],
 ];
 
-
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
@@ -89,9 +88,18 @@ function checkDrawState(results) {
 }
 
 function endGame(activePlayer) {
+    let winningPlayer;
+
     if (activePlayer === false) {
         alert('It was a draw');
     } else {
+        for(player in players) {
+            if(players[player] === activePlayer) {
+                winningPlayer = player;
+            } else {
+                winningPlayer = player;
+            }
+        }
         alert(`${activePlayer} wins`);
     }
     resetBoard();
