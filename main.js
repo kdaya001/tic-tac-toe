@@ -20,6 +20,12 @@ const PLAYER_BOARD = [
 
 let activePlayer = PLAYERS.playerOne;
 
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', function () {
+    resetBoard();
+});
+
+
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
@@ -47,7 +53,7 @@ function checkWinCondition() {
         }, 1);
     } else if (checkDrawState(boxes)) {
         setTimeout(function () {
-            endGame(false);
+            endGame();
         }, 1);
     } else {
         changeActivePlayer();
@@ -64,6 +70,7 @@ function checkEndWinningState(boxes) {
             return true;
         }
     }
+    return false;
 }
 
 function changeActivePlayer() {
@@ -86,7 +93,7 @@ function checkDrawState(boxes) {
     return true;
 }
 
-function endGame(activePlayer) {
+function endGame() {
     let winningPlayer;
 
     if (activePlayer === false) {
@@ -96,7 +103,7 @@ function endGame(activePlayer) {
             if(PLAYERS[player] === activePlayer) {
                 winningPlayer = player;
             } else {
-                winningPlayer = player;
+                winingPlayer = undefined;
             }
         }
         alert(`${winningPlayer} wins`);
