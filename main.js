@@ -1,12 +1,9 @@
-const players = {
+const PLAYERS = {
     playerOne: 'X',
     playerTwo: 'O',
 };
 
-let activePlayer = players.playerOne;
-
-//win conditions left to right, top to bottom, diagonal left to right
-const winningConditions = [
+const WINNING_CONDITIONS = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -17,22 +14,19 @@ const winningConditions = [
     [2, 4, 6],
 ];
 
+let activePlayer = PLAYERS.playerOne;
+
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
-        event.target.textContent = activePlayer; //TODO add style and don't let overwrite
-        checkWinCondition();
+        assignChosenValue(event);
     }
 });
 
-function changeActivePlayer() {
-    const activePlayerUI = document.querySelector('#active-player');
-    if (activePlayer === players.playerOne) {
-        activePlayer = players.playerTwo;
-        activePlayerUI.textContent = 'Player Two';
-    } else {
-        activePlayer = players.playerOne;
-        activePlayerUI.textContent = 'Player One';
+function assignChosenValue(event) {
+    if(event.target.textContent === '') {
+        event.target.textContent = activePlayer;
+        checkWinCondition();
     }
 }
 
@@ -60,7 +54,7 @@ function checkWinCondition() {
 
 function checkEndWinningState(results) {
     const boxes = document.querySelectorAll('.box');
-    for (condition of winningConditions) {
+    for (condition of WINNING_CONDITIONS) {
         if (
             boxes[condition[0]].textContent === activePlayer &&
             boxes[condition[1]].textContent === activePlayer &&
@@ -68,6 +62,17 @@ function checkEndWinningState(results) {
         ) {
             return true;
         }
+    }
+}
+
+function changeActivePlayer() {
+    const activePlayerUI = document.querySelector('#active-player');
+    if (activePlayer === PLAYERS.playerOne) {
+        activePlayer = PLAYERS.playerTwo;
+        activePlayerUI.textContent = 'Player Two';
+    } else {
+        activePlayer = PLAYERS.playerOne;
+        activePlayerUI.textContent = 'Player One';
     }
 }
 
@@ -93,8 +98,8 @@ function endGame(activePlayer) {
     if (activePlayer === false) {
         alert('It was a draw');
     } else {
-        for(player in players) {
-            if(players[player] === activePlayer) {
+        for(let player in PLAYERS) {
+            if(PLAYERS[player] === activePlayer) {
                 winningPlayer = player;
             } else {
                 winningPlayer = player;
