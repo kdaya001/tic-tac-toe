@@ -14,6 +14,10 @@ const WINNING_CONDITIONS = [
     [2, 4, 6],
 ];
 
+const PLAYER_BOARD = [
+    null, null, null, null, null, null, null, null, null
+];
+
 let activePlayer = PLAYERS.playerOne;
 
 const boxWrapper = document.querySelector('#wrapper');
@@ -25,25 +29,23 @@ boxWrapper.addEventListener('click', function (event) {
 
 function assignChosenValue(event) {
     if(event.target.textContent === '') {
-        event.target.textContent = activePlayer;
+        const para = document.createElement('p');
+        const node = document.createTextNode(activePlayer);
+        para.classList.add('displayValue');
+        para.appendChild(node);
+        event.target.appendChild(para);
         checkWinCondition();
     }
 }
 
 function checkWinCondition() {
     const boxes = document.querySelectorAll('.box');
-    const results = {};
-    for (let i = 0; i < 9; i++) {
-        results[`box${i + 1}`] = {
-            player: boxes[i].textContent,
-        };
-    }
 
-    if (checkEndWinningState()) {
+    if (checkEndWinningState(boxes)) {
         setTimeout(function () {
             endGame(activePlayer);
         }, 1);
-    } else if (checkDrawState(results)) {
+    } else if (checkDrawState(boxes)) {
         setTimeout(function () {
             endGame(false);
         }, 1);
@@ -52,8 +54,7 @@ function checkWinCondition() {
     }
 }
 
-function checkEndWinningState(results) {
-    const boxes = document.querySelectorAll('.box');
+function checkEndWinningState(boxes) {
     for (condition of WINNING_CONDITIONS) {
         if (
             boxes[condition[0]].textContent === activePlayer &&
@@ -76,20 +77,13 @@ function changeActivePlayer() {
     }
 }
 
-function checkDrawState(results) {
-    if (
-        results.box1.player !== '' &&
-        results.box2.player !== '' &&
-        results.box3.player !== '' &&
-        results.box4.player !== '' &&
-        results.box5.player !== '' &&
-        results.box6.player !== '' &&
-        results.box7.player !== '' &&
-        results.box8.player !== '' &&
-        results.box9.player !== ''
-    ) {
-        return true;
+function checkDrawState(boxes) {
+    for(index in boxes) {
+        if(boxes[index].textContent === '') {
+            return false;
+        }
     }
+    return true;
 }
 
 function endGame(activePlayer) {
@@ -105,7 +99,7 @@ function endGame(activePlayer) {
                 winningPlayer = player;
             }
         }
-        alert(`${activePlayer} wins`);
+        alert(`${winningPlayer} wins`);
     }
     resetBoard();
 }

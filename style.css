@@ -2,9 +2,18 @@ body * {
     box-sizing: border-box;
 }
 
+body {
+    background-color: rgb(152, 218, 196);
+}
+
 #outer-wrapper {
     display:flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+header {
+    margin: auto;
 }
 
 #wrapper {
@@ -13,9 +22,38 @@ body * {
     grid-template-rows: 1fr 1fr 1fr;
 }
 
-#wrapper > * {
-    border: 1px black solid;
-    margin: 5px;
-    height: 5em;
-    width: 5em;
+@media screen and (min-width:436px) {
+    #wrapper {
+        width: 436px;
+        margin:auto;
+    }
 }
+
+h3 {
+    text-align: center;
+    margin-right: 1em;
+}
+
+#wrapper > * {
+    display: flex;
+    margin: 5px;
+    height: 8em;
+    width: 8em;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.displayValue {
+    margin: auto;
+    font-size:100px;
+}
+
+/* .winner-straight:after{
+    content:"";
+    position:absolute;
+    border-top:5px solid red;
+    width:38em;
+    transform: translate(0, 13m);
+    transform: rotate(43deg);
+    transform-origin: 0% 0%;
+    } */
