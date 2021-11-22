@@ -72,6 +72,7 @@ button {
     border-radius: 10px;
     border: 0px none;
     height: 2em;
+    margin: 15px;
 }
 
 #points {

@@ -20,8 +20,17 @@ let winningState = false;
 
 let activePlayer = PLAYERS.playerOne;
 
-const resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', function () {
+const resetBoardButton = document.getElementById('reset-board');
+resetBoardButton.addEventListener('click', function () {
+    resetBoard();
+});
+
+const resetScore = document.getElementById('reset-score');
+resetScore.addEventListener('click', function() {
+    const playerOneScore = document.getElementById('player-one-points');
+    const playerTwoScore = document.getElementById('player-two-points');
+    playerOneScore.textContent = 0;
+    playerTwoScore.textContent = 0;
     resetBoard();
 });
 
@@ -118,6 +127,7 @@ function endGame(activePlayer = false) {
     bottomBanner.style.fontSize = '25px';
     bottomBanner.style.color = 'red';
     updatePoints(winningPlayer);
+    showPlayAgainButton();
 }
 
 function updatePoints(winningPlayer) {
