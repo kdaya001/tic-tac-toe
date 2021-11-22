@@ -116,7 +116,11 @@ function endGame(activePlayer = false) {
     } else {
         for (let player in PLAYERS) {
             if (PLAYERS[player] === activePlayer) {
-                winningPlayer = player;
+                if(player === "playerOne") {
+                    winningPlayer = "Player One";
+                } else if (player === "PlayerTwo") {
+                    winningPlayer = "Player Two";
+                }
             } else {
                 winingPlayer = undefined;
             }
@@ -127,7 +131,6 @@ function endGame(activePlayer = false) {
     bottomBanner.style.fontSize = '25px';
     bottomBanner.style.color = 'red';
     updatePoints(winningPlayer);
-    showPlayAgainButton();
 }
 
 function updatePoints(winningPlayer) {

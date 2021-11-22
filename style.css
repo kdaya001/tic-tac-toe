@@ -7,14 +7,24 @@ body {
     font-family: 'M PLUS 2', sans-serif;
 }
 
-#outer-wrapper {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
+button {
+    border-radius: 10px;
+    border: 0px none;
+    height: 2em;
+    margin: 15px;
 }
 
 header {
     margin: auto;
+}
+
+h3 {
+    text-align: center;
+}
+
+#outer-wrapper {
+    display:flex;
+    flex-direction: column;
 }
 
 #wrapper {
@@ -23,27 +33,19 @@ header {
     grid-template-rows: 1fr 1fr 1fr;
     background-color: beige;
     border-radius: 30px;
-}
-
-@media screen and (min-width:385px) {
-    #wrapper {
-        width: 385px;
-        margin:auto;
-    }
+    width: 336px; 
+    margin:auto;
+    
 }
 
 #button-nav {
     margin: auto;
 }
 
-h3 {
-    text-align: center;
-}
-
 #wrapper > * {
     display: flex;
-    height: 8em;
-    width: 8em;
+    height: 7em;
+    width: 7em;
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -68,37 +70,38 @@ h3 {
     font-size:100px;
 }
 
-button {
-    border-radius: 10px;
-    border: 0px none;
-    height: 2em;
-    margin: 15px;
-}
-
 #points {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
 }
 
 #player-one {
-    grid-column: 1 /span 1;
-    text-align: right;
+    border-radius: 30px;
+    grid-column: 2 /span 1;
     margin-right: 1em;
+    padding:.2em;
     margin-top: 0em;
+    background: beige;
+    text-align: center;
 }
 
 #player-two {
-    grid-column: 2 /span 1;
-    text-align: left;
+    border-radius: 30px;
+    grid-column: 3 /span 1;
+    margin-left: 1em;
+    padding:.2em;
     margin-top: 0em;
+    background: beige;
+    text-align: center;
 }
 
-/* .winner-straight:after{
-    content:"";
-    position:absolute;
-    border-top:5px solid red;
-    width:38em;
-    transform: translate(0, 13m);
-    transform: rotate(43deg);
-    transform-origin: 0% 0%;
-    } */
+@media screen and (min-width: 385px) {
+    #wrapper {
+        width: 385px;
+    }
+
+    #wrapper > * {
+        height: 8em;
+        width: 8em;
+    }
+}
