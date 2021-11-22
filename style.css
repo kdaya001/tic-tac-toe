@@ -17,18 +17,13 @@ button {
     height: 2em;
     margin: 15px;
 }
-  
-
-header {
-    margin: auto;
-}
 
 h3 {
     text-align: center;
 }
 
 #outer-wrapper {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -38,12 +33,13 @@ h3 {
     grid-template-rows: 1fr 1fr 1fr;
     background-color: beige;
     border-radius: 30px;
-    width: 336px; 
-    margin:auto;
-    
+    width: 336px;
+    margin: auto;
 }
 
-#button-nav, #update-name {
+#button-nav,
+#update-name,
+header {
     margin: auto;
 }
 
@@ -51,28 +47,26 @@ h3 {
     display: flex;
     height: 7em;
     width: 7em;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#box-1, #box-2, #box-3 {
+#box-04,
+#box-05,
+#box-06 {
+    border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
 
-#box-1, #box-4, #box-7 {
+#box-02,
+#box-05,
+#box-08 {
     border-right: 1px solid black;
-}
-
-#box-3, #box-6, #box-9 {
     border-left: 1px solid black;
-}
-
-#box-7, #box-8, #box-9 {
-    border-top: 1px solid black;
 }
 
 .displayValue {
     margin: auto;
-    font-size:100px;
+    font-size: 100px;
 }
 
 #points {
@@ -80,24 +74,21 @@ h3 {
     grid-template-columns: 2fr 1fr 1fr 2fr;
 }
 
-#player-one {
+#player-one, #player-two {
     border-radius: 30px;
-    grid-column: 2 /span 1;
     margin-right: 1em;
-    padding:.2em;
+    padding: 0.2em;
     margin-top: 0em;
     background: beige;
     text-align: center;
 }
 
+#player-one {
+    grid-column: 2 / span 1;
+}
+
 #player-two {
-    border-radius: 30px;
-    grid-column: 3 /span 1;
-    margin-left: 1em;
-    padding:.2em;
-    margin-top: 0em;
-    background: beige;
-    text-align: center;
+    grid-column: 3 / span 1;
 }
 
 @media screen and (min-width: 385px) {
@@ -110,3 +101,15 @@ h3 {
         width: 8em;
     }
 }
+
+@keyframes expand { 
+    from { 
+      transform: scale(0);
+      opacity: 0;
+    }
+}
+
+.box-animation {
+    animation: expand .3s ease-in;
+  }
+  
