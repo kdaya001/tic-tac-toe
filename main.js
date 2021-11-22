@@ -43,6 +43,12 @@ changeName.addEventListener('click', function (event) {
         event.target.textContent = "Update";
     } else {
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
+            let currentPlayer = document.getElementById('active-player');
+            if(currentPlayer.textContent === PLAYERS.playerOne.name) {
+                currentPlayer.textContent = playerOneNameInput.value;
+            } else if (currentPlayer.textContent === PLAYERS.playerTwo.name) {
+                currentPlayer.textContent = playerTwoNameInput.value;
+            }
             PLAYERS.playerOne.name = playerOneNameInput.value;
             PLAYERS.playerTwo.name = playerTwoNameInput.value;
 
@@ -51,6 +57,8 @@ changeName.addEventListener('click', function (event) {
 
             playerOneNameInput.setAttribute('type', 'hidden');
             playerTwoNameInput.setAttribute('type', 'hidden');
+            playerOneNameInput.value = '';
+            playerTwoNameInput.value = '';
             event.target.textContent = "Update Player Names";
         } else {
             alert('Enter a valid entry');
@@ -155,7 +163,6 @@ function endGame(activePlayer = false) {
         bottomBanner.textContent = `${PLAYERS[winningPlayer].name} wins`;
         winningState = true;
     }
-    bottomBanner.style.fontSize = '25px';
     bottomBanner.style.color = 'red';
     updatePoints(winningPlayer);
 }
