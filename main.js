@@ -14,10 +14,6 @@ const WINNING_CONDITIONS = [
     [2, 4, 6],
 ];
 
-const PLAYER_BOARD = [
-    null, null, null, null, null, null, null, null, null
-];
-
 const bottomBanner = document.getElementById('bottom-banner');
 
 let winningState = false;
@@ -29,18 +25,17 @@ resetButton.addEventListener('click', function () {
     resetBoard();
 });
 
-
 const boxWrapper = document.querySelector('#wrapper');
 boxWrapper.addEventListener('click', function (event) {
     if (event.target.classList.contains('box')) {
-        if(!winningState) {
+        if (!winningState) {
             assignChosenValue(event);
         }
     }
 });
 
 function assignChosenValue(event) {
-    if(event.target.textContent === '') {
+    if (event.target.textContent === '') {
         const para = document.createElement('p');
         const node = document.createTextNode(activePlayer);
         para.classList.add('displayValue');
@@ -58,7 +53,7 @@ function checkWinCondition() {
         }, 1);
     } else if (checkDrawState(boxes)) {
         setTimeout(function () {
-            endGame(false);
+            endGame();
         }, 1);
     } else {
         changeActivePlayer();
@@ -80,8 +75,8 @@ function checkEndWinningState(boxes) {
 }
 
 function changeColor(condition, boxes) {
-    for(let i = 0; i < 3; i++) {
-        boxes[condition[i]].style.color = "red";
+    for (let i = 0; i < 3; i++) {
+        boxes[condition[i]].style.color = 'red';
     }
 }
 
@@ -97,21 +92,21 @@ function changeActivePlayer() {
 }
 
 function checkDrawState(boxes) {
-    for(index in boxes) {
-        if(boxes[index].textContent === '') {
+    for (index in boxes) {
+        if (boxes[index].textContent === '') {
             return false;
         }
     }
     return true;
 }
 
-function endGame(activePlayer) {
+function endGame(activePlayer = false) {
     let winningPlayer;
     if (activePlayer === false) {
-        bottomBanner.textContent = "It was a draw";
+        bottomBanner.textContent = `It's a draw`;
     } else {
-        for(let player in PLAYERS) {
-            if(PLAYERS[player] === activePlayer) {
+        for (let player in PLAYERS) {
+            if (PLAYERS[player] === activePlayer) {
                 winningPlayer = player;
             } else {
                 winingPlayer = undefined;
@@ -120,8 +115,22 @@ function endGame(activePlayer) {
         bottomBanner.textContent = `${winningPlayer} wins`;
         winningState = true;
     }
-    bottomBanner.style.fontSize = '30px';
-    bottomBanner.style.color = "red";
+    bottomBanner.style.fontSize = '25px';
+    bottomBanner.style.color = 'red';
+    updatePoints(winningPlayer);
+}
+
+function updatePoints(winningPlayer) {
+    const playerOnePoints = document.getElementById('player-one-points');
+    const playerTwoPoints = document.getElementById('player-two-points');
+    let points;
+    if(winningPlayer === 'playerOne') {
+        points = Number(playerOnePoints.textContent) + 1;
+        playerOnePoints.textContent = points;
+    } else if (winningPlayer === 'playerTwo') {
+        points = Number(playerTwoPoints.textContent) + 1;
+        playerTwoPoints.textContent = points;
+    }
 }
 
 function resetBoard() {
@@ -130,8 +139,9 @@ function resetBoard() {
         box.textContent = '';
         box.style.color = null;
     }
-    bottomBanner.textContent = 'Current Player: Player One';
+    bottomBanner.innerHTML = 'Current Player: <span id="active-player">PlayerOne</span>';
     bottomBanner.style.color = null;
+    bottomBanner.style.fontSize = null;
     activePlayer = PLAYERS.playerOne;
     winningState = false;
 }

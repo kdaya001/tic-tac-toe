@@ -74,6 +74,24 @@ button {
     height: 2em;
 }
 
+#points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#player-one {
+    grid-column: 1 /span 1;
+    text-align: right;
+    margin-right: 1em;
+    margin-top: 0em;
+}
+
+#player-two {
+    grid-column: 2 /span 1;
+    text-align: left;
+    margin-top: 0em;
+}
+
 /* .winner-straight:after{
     content:"";
     position:absolute;
