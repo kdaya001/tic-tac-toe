@@ -26,7 +26,6 @@ const WINNING_CONDITIONS = [
 
 const currentGameState = [null, null, null, null, null, null, null, null, null];
 let winningState = false;
-let activePlayerToken = PLAYERS.playerOne.token;
 
 //Event listener for if the Reset Board button is clicked
 const resetBoardButton = document.getElementById('reset-board');
@@ -90,10 +89,10 @@ function assignChosenValue(event) {
     if (event.target.textContent === '') {
         let num = event.target.id.slice(-2);
         num = Number(num);
-        currentGameState[num - 1] = activePlayerToken;
+        currentGameState[num - 1] = getActivePlayer().token;
 
         const para = document.createElement('p');
-        const node = document.createTextNode(activePlayerToken);
+        const node = document.createTextNode(getActivePlayer().token);
         para.appendChild(node);
         para.classList.add('displayValue');
         // para.classList.toggle('box-animation');
@@ -107,7 +106,7 @@ function checkGameEndConditions() {
     const boxes = document.querySelectorAll('.box');
     if (checkEndWinningState(boxes, currentGameState)) {
         setTimeout(function () {
-            endGame(activePlayerToken);
+            endGame(getActivePlayer().token);
         }, 1);
     } else if (checkDrawState(currentGameState)) {
         setTimeout(function () {
@@ -122,9 +121,9 @@ function checkGameEndConditions() {
 function checkEndWinningState(boxes, currentGameState) {
     for (condition of WINNING_CONDITIONS) {
         if (
-            currentGameState[condition[0]] === activePlayerToken &&
-            currentGameState[condition[1]] === activePlayerToken &&
-            currentGameState[condition[2]] === activePlayerToken
+            currentGameState[condition[0]] === getActivePlayer().token &&
+            currentGameState[condition[1]] === getActivePlayer().token &&
+            currentGameState[condition[2]] === getActivePlayer().token
         ) {
             changeColor(condition, boxes);
             return true;
@@ -163,8 +162,8 @@ function endGame(activePlayer = false) {
             }
         }
         bottomBanner.textContent = `${PLAYERS[winningPlayer].name} wins`;
-        winningState = true;
     }
+    winningState = true;
     bottomBanner.style.color = 'red';
     updatePoints(winningPlayer);
 }
@@ -189,7 +188,8 @@ function resetBoard(bottomBanner) {
     bottomBanner.innerHTML =
         `Current Player: <span id="active-player">${PLAYERS.playerOne.name}</span>`;
     bottomBanner.style.cssText = `color: null; fontSize = null`;
-    activePlayerToken = PLAYERS.playerOne.token;
+    PLAYERS.playerOne.activePlayer = true;
+    PLAYERS.playerTwo.activePlayer = false;
     winningState = false;
 
     for (let index in currentGameState) {
@@ -204,11 +204,7 @@ function updateDOM() {
     document.getElementById('player-two-name').textContent = PLAYERS.playerTwo.name;
     
     if(!winningState) {
-        for(let player in PLAYERS) {
-            if(PLAYERS[player].activePlayer) {
-                document.getElementById('active-player').textContent = PLAYERS[player].name;
-            }
-        }
+        document.getElementById('active-player').textContent = getActivePlayer().name;
     }
 }
 
@@ -217,12 +213,18 @@ function updateActivePlayer() {
     if (PLAYERS['playerOne'].activePlayer) {
         PLAYERS['playerOne'].activePlayer = false;
         PLAYERS['playerTwo'].activePlayer = true;
-        activePlayerToken = PLAYERS['playerTwo'].token;
         activePlayerUI.textContent = PLAYERS.playerTwo.name;
     } else {
         PLAYERS['playerTwo'].activePlayer = false;
         PLAYERS['playerOne'].activePlayer = true;
-        activePlayerToken = PLAYERS['playerOne'].token;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
+    }
+}
+
+function getActivePlayer() {
+    for(let player in PLAYERS) {
+        if(PLAYERS[player].activePlayer) {
+            return PLAYERS[player];
+        }
     }
 }
