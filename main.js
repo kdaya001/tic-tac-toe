@@ -1,6 +1,12 @@
 const PLAYERS = {
-    playerOne: 'X',
-    playerTwo: 'O',
+    playerOne: {
+        name: "Player One",
+        token: 'X',
+    },
+    playerTwo: {
+        name: "Player Two",
+        token: 'O',
+    },
 };
 
 const WINNING_CONDITIONS = [
@@ -18,11 +24,38 @@ const bottomBanner = document.getElementById('bottom-banner');
 
 let winningState = false;
 
-let activePlayer = PLAYERS.playerOne;
+let activePlayer = PLAYERS.playerOne.token;
 
 const resetBoardButton = document.getElementById('reset-board');
 resetBoardButton.addEventListener('click', function () {
     resetBoard();
+});
+
+const changeName = document.getElementById('submit-name');
+changeName.addEventListener('click', function (event) {
+    const playerOneNameInput = document.getElementById('player-one-chosen-name');
+    const playerTwoNameInput = document.getElementById('player-two-chosen-name');
+
+    if(event.target.textContent === "Update Player Names") {
+        playerOneNameInput.removeAttribute('type', 'hidden');
+        playerTwoNameInput.removeAttribute('type', 'hidden');
+
+        event.target.textContent = "Update";
+    } else {
+        if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
+            PLAYERS.playerOne.name = playerOneNameInput.value;
+            PLAYERS.playerTwo.name = playerTwoNameInput.value;
+
+            document.getElementById('player-one-name').textContent = PLAYERS.playerOne.name;
+            document.getElementById('player-two-name').textContent = PLAYERS.playerTwo.name;
+
+            playerOneNameInput.setAttribute('type', 'hidden');
+            playerTwoNameInput.setAttribute('type', 'hidden');
+            event.target.textContent = "Update Player Names";
+        } else {
+            alert('Enter a valid entry');
+        }
+    }
 });
 
 const resetScore = document.getElementById('reset-score');
@@ -91,11 +124,11 @@ function changeColor(condition, boxes) {
 
 function changeActivePlayer() {
     const activePlayerUI = document.querySelector('#active-player');
-    if (activePlayer === PLAYERS.playerOne) {
-        activePlayer = PLAYERS.playerTwo;
+    if (activePlayer === PLAYERS.playerOne.token) {
+        activePlayer = PLAYERS.playerTwo.token;
         activePlayerUI.textContent = 'Player Two';
     } else {
-        activePlayer = PLAYERS.playerOne;
+        activePlayer = PLAYERS.playerOne.token;
         activePlayerUI.textContent = 'Player One';
     }
 }
@@ -115,17 +148,11 @@ function endGame(activePlayer = false) {
         bottomBanner.textContent = `It's a draw`;
     } else {
         for (let player in PLAYERS) {
-            if (PLAYERS[player] === activePlayer) {
-                if(player === "playerOne") {
-                    winningPlayer = "Player One";
-                } else if (player === "PlayerTwo") {
-                    winningPlayer = "Player Two";
-                }
-            } else {
-                winingPlayer = undefined;
+            if (PLAYERS[player].token === activePlayer) {
+                winningPlayer = player;
             }
         }
-        bottomBanner.textContent = `${winningPlayer} wins`;
+        bottomBanner.textContent = `${PLAYERS[winningPlayer].name} wins`;
         winningState = true;
     }
     bottomBanner.style.fontSize = '25px';
@@ -155,6 +182,6 @@ function resetBoard() {
     bottomBanner.innerHTML = 'Current Player: <span id="active-player">PlayerOne</span>';
     bottomBanner.style.color = null;
     bottomBanner.style.fontSize = null;
-    activePlayer = PLAYERS.playerOne;
+    activePlayer = PLAYERS.playerOne.token;
     winningState = false;
 }

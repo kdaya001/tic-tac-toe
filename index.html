@@ -19,8 +19,8 @@
                 <h1>Tic Tac Toe</h1>
             </header>
             <div id="points">
-                <p id="player-one">Player One: <span id="player-one-points">0</span></p>
-                <p id="player-two">Player Two: <span id="player-two-points">0</span></p>
+                <p id="player-one"><span id="player-one-name">Player One</span>: <span id="player-one-points">0</span></p>
+                <p id="player-two"><span id="player-two-name">Player Two</span>: <span id="player-two-points">0</span></p>
             </div>
             <div id="wrapper" class="winner-straight">
                 <div class="box" id="box-1"></div>
@@ -38,6 +38,11 @@
                 <h3 id="bottom-banner">
                     Current Player: <span id="active-player">Player One</span>
                 </h3>
+            </div>
+            <div id="update-name">
+                <input type="hidden" type="text" id="player-one-chosen-name" placeholder="player one">
+                <input type="hidden" type="text" id="player-two-chosen-name" placeholder="player two">
+                <button id="submit-name">Update Player Names</button>
             </div>
             <div id="button-nav">
                 <button id="reset-board" type="button">Reset Board</button>

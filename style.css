@@ -7,6 +7,10 @@ body {
     font-family: 'M PLUS 2', sans-serif;
 }
 
+input {
+    margin: 3px;
+}
+
 button {
     border-radius: 10px;
     border: 0px none;
@@ -38,7 +42,7 @@ h3 {
     
 }
 
-#button-nav {
+#button-nav, #update-name {
     margin: auto;
 }
 
