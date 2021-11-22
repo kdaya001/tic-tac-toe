@@ -26,12 +26,12 @@ const WINNING_CONDITIONS = [
 
 const currentGameState = [null, null, null, null, null, null, null, null, null];
 let winningState = false;
+const bottomBanner = document.getElementById('bottom-banner');
 
 //Event listener for if the Reset Board button is clicked
 const resetBoardButton = document.getElementById('reset-board');
 resetBoardButton.addEventListener('click', function () {
-    const bottomBanner = document.getElementById('bottom-banner');
-    resetBoard(bottomBanner);
+    resetBoard();
 });
 
 //event listener for if Update Player names is selected
@@ -87,15 +87,14 @@ boxWrapper.addEventListener('click', function (event) {
 //function to assign value to the board AND game state
 function assignChosenValue(event) {
     if (event.target.textContent === '') {
-        let num = event.target.id.slice(-2);
-        num = Number(num);
+
+        let num = Number(event.target.id.slice(-2));
         currentGameState[num - 1] = getActivePlayer().token;
 
         const para = document.createElement('p');
         const node = document.createTextNode(getActivePlayer().token);
         para.appendChild(node);
         para.classList.add('displayValue');
-        // para.classList.toggle('box-animation');
         event.target.appendChild(para);
         checkGameEndConditions();
     }
@@ -135,7 +134,7 @@ function checkEndWinningState(boxes, currentGameState) {
 //function to change the color of the boxes
 function changeColor(condition, boxes) {
     for (let i = 0; i < 3; i++) {
-        boxes[condition[i]].style.color = 'red';
+        boxes[condition[i]].style.backgroundColor = 'red';
     }
 }
 
@@ -179,15 +178,15 @@ function updatePoints(winningPlayer) {
 }
 
 //function to reset the board
-function resetBoard(bottomBanner) {
+function resetBoard() {
     const boxes = document.querySelectorAll('.box');
     for (box of boxes) {
         box.textContent = '';
-        box.style.color = null;
+        box.style.backgroundColor = null;
     }
     bottomBanner.innerHTML =
         `Current Player: <span id="active-player">${PLAYERS.playerOne.name}</span>`;
-    bottomBanner.style.cssText = `color: null; fontSize = null`;
+    bottomBanner.style.color = null;
     PLAYERS.playerOne.activePlayer = true;
     PLAYERS.playerTwo.activePlayer = false;
     winningState = false;

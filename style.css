@@ -32,7 +32,6 @@ h3 {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     background-color: beige;
-    border-radius: 30px;
     width: 336px;
     margin: auto;
 }
@@ -110,7 +109,9 @@ header {
     }
 }
 
-.box-animation {
-    animation: expand .3s ease-in;
-  }
-  
+input {
+    border-radius: 30px;
+    border: 0;
+    height: 2em;
+    padding: 1em;
+}
