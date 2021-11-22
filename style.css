@@ -67,6 +67,7 @@ header {
 .displayValue {
     margin: auto;
     font-size: 100px;
+    animation: expand .3s ease-in;
 }
 
 #points {
