@@ -32,7 +32,7 @@ GA SEI - Project 1
 ![alt text](/images/basic-layout-wireframe.jpg)
 
 ### Game Logic (high level):
-* Check win condition:
+* Check win condition: (use an Array with the index of the win conditions). Basic premise for winning is:
     * If row 1 matches; else
     * If row 2 matches: else
     * If row 3 matches: else
