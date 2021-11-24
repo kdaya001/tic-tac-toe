@@ -34,62 +34,64 @@ resetBoardButton.addEventListener('click', function () {
     resetBoard();
 });
 
+const modalIcon = document.querySelector('.modal-content-icon');
+const modalName = document.querySelector('.modal-content-name');
+
 //event listener for if Update Player names is selected
 const changeName = document.getElementById('submit-name');
 changeName.addEventListener('click', function (event) {
-    const playerOneNameInput = document.getElementById(
-        'player-one-chosen-name'
-    );
-    const playerTwoNameInput = document.getElementById(
-        'player-two-chosen-name'
-    );
+    const modal = document.getElementById('popup-modal');
+    modal.style.display = 'block';
 
-    if (event.target.textContent === 'Update Player Names') {
-        toggleHiddenButton(true, event, playerOneNameInput, playerTwoNameInput);
-    } else {
+    modalName.style.display = 'block';
+    modalIcon.style.display = 'none';
+
+    const iconName = document.querySelector('.submit-modal-name');
+    iconName.addEventListener('click', function () {
+        const playerOneNameInput = document.getElementById(
+            'player-one-chosen-name'
+        );
+        const playerTwoNameInput = document.getElementById(
+            'player-two-chosen-name'
+        );
+
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
             PLAYERS.playerOne.name = playerOneNameInput.value;
             PLAYERS.playerTwo.name = playerTwoNameInput.value;
             document.querySelector('#active-player').textContent =
                 getActivePlayer().name;
             updateDOM();
-
-            toggleHiddenButton(
-                false,
-                event,
-                playerOneNameInput,
-                playerTwoNameInput,
-                'Update Player Name'
-            );
+            modal.style.display = 'none';
         } else {
             alert('Enter a valid entry for both players');
         }
-    }
+    });
 });
 
 const changeIcon = document.getElementById('submit-icons');
 changeIcon.addEventListener('click', function (event) {
-    const playerOneIconInput = document.getElementById('player-one-icon');
-    const playerTwoIconInput = document.getElementById('player-two-icon');
-    if (event.target.textContent === 'Update Player Icon [Next Game]') {
-        toggleHiddenButton(true, event, playerOneIconInput, playerTwoIconInput);
-    } else {
+    const modal = document.getElementById('popup-modal');
+    modal.style.display = 'block';
+
+    modalName.style.display = 'none';
+    modalIcon.style.display = 'block';
+
+    const iconSubmit = document.querySelector('.submit-modal-icon');
+    iconSubmit.addEventListener('click', function () {
+        const playerOneIconInput = document.getElementById('player-one-icon');
+        const playerTwoIconInput = document.getElementById('player-two-icon');
         if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
             PLAYERS.playerOne.token = playerOneIconInput.value;
             PLAYERS.playerTwo.token = playerTwoIconInput.value;
-            toggleHiddenButton(
-                false,
-                event,
-                playerOneIconInput,
-                playerTwoIconInput,
-                'Update Player Icon [Next Game]'
-            );
-            document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
-            document.getElementById('p-two-icon').textContent = PLAYERS.playerTwo.token
+            document.getElementById('p-one-icon').textContent =
+                PLAYERS.playerOne.token;
+            document.getElementById('p-two-icon').textContent =
+                PLAYERS.playerTwo.token;
+            modal.style.display = 'none';
         } else {
             alert('Enter a valid entry for both players!');
         }
-    }
+    });
 });
 
 function toggleHiddenButton(
@@ -262,14 +264,14 @@ function updateActivePlayer() {
     if (PLAYERS['playerOne'].activePlayer) {
         PLAYERS['playerOne'].activePlayer = false;
         PLAYERS['playerTwo'].activePlayer = true;
-        document.getElementById('player-one').style.backgroundColor = "green";
+        document.getElementById('player-one').style.backgroundColor = 'green';
         document.getElementById('player-two').style.backgroundColor = 'beige';
         activePlayerUI.textContent = PLAYERS.playerTwo.name;
     } else {
         PLAYERS['playerTwo'].activePlayer = false;
         PLAYERS['playerOne'].activePlayer = true;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
-        document.getElementById('player-two').style.backgroundColor = "green";
+        document.getElementById('player-two').style.backgroundColor = 'green';
         document.getElementById('player-one').style.backgroundColor = 'beige';
     }
 }

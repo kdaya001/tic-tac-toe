@@ -35,48 +35,6 @@
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
-            <div id="options-nav">
-                <!-- <button id="more-options">More Option</button> -->
-                <!-- <div class="line"></div> -->
-                <!-- <div id="hidden-options" class="hidden"> -->
-                <div id="update-name">
-                    <input
-                        type="hidden"
-                        type="text"
-                        id="player-one-chosen-name"
-                        placeholder="player one"
-                    />
-                    <br />
-                    <input
-                        type="hidden"
-                        type="text"
-                        id="player-two-chosen-name"
-                        placeholder="player two"
-                    />
-                    <!-- <button id="submit-name">Update Player Names</button> -->
-                    <br />
-                    <input
-                        type="hidden"
-                        type="text"
-                        id="player-one-icon"
-                        placeholder="enter icon here"
-                        maxlength="1"
-                    />
-                    <br />
-                    <input
-                        type="hidden"
-                        type="text"
-                        id="player-two-icon"
-                        placeholder="enter icon here"
-                        maxlength="1"
-                    />
-                    <!-- <button id="submit-icons">
-                            Update Player Icon [Next Game]
-                        </button> -->
-                </div>
-                <!-- </div> -->
-            </div>
-
             <div id="player-one">
                 <br/>
                 <span id="player-one-name">Player One</span>:
@@ -112,6 +70,42 @@
             <div id="button-nav">
                 <button id="reset-board" type="button">Reset Board</button>
                 <button id="reset-score" type="button">Reset Score</button>
+            </div>
+        </div>
+
+        <div id="popup-modal" class="modal">
+            <div class="modal-content-icon">
+                <input
+                    type="text"
+                    id="player-one-icon"
+                    placeholder="enter icon here"
+                    maxlength="1"
+                />
+                <br/>
+                <input
+                    type="text"
+                    id="player-two-icon"
+                    placeholder="enter icon here"
+                    maxlength="1"
+                />
+                <br/>
+                <button class="submit-modal-icon">Submit</button>
+            </div>
+
+            <div class="modal-content-name">
+                <input
+                    type="text"
+                    id="player-one-chosen-name"
+                    placeholder="player one"
+                />
+                <br/>
+                <input
+                    type="text"
+                    id="player-two-chosen-name"
+                    placeholder="player two"
+                />
+                <br/>
+                <button class="submit-modal-name">Submit</button>   
             </div>
         </div>
         <script src="main.js"></script>
