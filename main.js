@@ -52,6 +52,7 @@ changeName.addEventListener('click', function (event) {
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
             PLAYERS.playerOne.name = playerOneNameInput.value;
             PLAYERS.playerTwo.name = playerTwoNameInput.value;
+            document.querySelector('#active-player').textContent = getActivePlayer().name;
             updateDOM();
 
             playerOneNameInput.setAttribute('type', 'hidden');
@@ -160,7 +161,7 @@ function endGame(activePlayer = false) {
                 winningPlayer = player;
             }
         }
-        bottomBanner.textContent = `${PLAYERS[winningPlayer].name} wins`;
+        bottomBanner.innerHTML = `<span id="active-player">${PLAYERS[winningPlayer].name}</span> wins`;
     }
     winningState = true;
     bottomBanner.style.color = 'red';
@@ -227,3 +228,14 @@ function getActivePlayer() {
         }
     }
 }
+
+const moreOptions = document.getElementById('more-options');
+moreOptions.addEventListener('click', function(event) {
+    let options = document.getElementById('hidden-options')
+        options.classList.toggle('hidden');
+        if(options.classList.contains('hidden')) {
+            event.target.textContent = "More Options";
+        } else {
+            event.target.textContent = "Hide";
+        }
+});

@@ -66,7 +66,7 @@ header {
 .displayValue {
     margin: auto;
     font-size: 100px;
-    animation: expand .3s ease-in;
+    animation: expand 0.2s ease-in;
 }
 
 #points {
@@ -74,7 +74,8 @@ header {
     grid-template-columns: 2fr 1fr 1fr 2fr;
 }
 
-#player-one, #player-two {
+#player-one,
+#player-two {
     border-radius: 30px;
     margin-right: 1em;
     padding: 0.2em;
@@ -102,10 +103,10 @@ header {
     }
 }
 
-@keyframes expand { 
-    from { 
-      transform: scale(0);
-      opacity: 0;
+@keyframes expand {
+    from {
+        transform: scale(0);
+        opacity: 0;
     }
 }
 
@@ -114,4 +115,9 @@ input {
     border: 0;
     height: 2em;
     padding: 1em;
+}
+
+
+.hidden {
+    display:none;
 }

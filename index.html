@@ -18,6 +18,26 @@
             <header>
                 <h1>Tic Tac Toe</h1>
             </header>
+            <div id="options-nav">
+                <button id="more-options">More Option</button>
+                <div id="hidden-options" class="hidden">
+                    <div id="update-name">
+                        <input
+                            type="hidden"
+                            type="text"
+                            id="player-one-chosen-name"
+                            placeholder="player one"
+                        />
+                        <input
+                            type="hidden"
+                            type="text"
+                            id="player-two-chosen-name"
+                            placeholder="player two"
+                        />
+                        <button id="submit-name">Update Player Names</button>
+                    </div>
+                </div>
+            </div>
             <div id="points">
                 <p id="player-one">
                     <span id="player-one-name">Player One</span>:
@@ -48,22 +68,6 @@
             <div id="button-nav">
                 <button id="reset-board" type="button">Reset Board</button>
                 <button id="reset-score" type="button">Reset Score</button>
-            </div>
-
-            <div id="update-name">
-                <input
-                    type="hidden"
-                    type="text"
-                    id="player-one-chosen-name"
-                    placeholder="player one"
-                />
-                <input
-                    type="hidden"
-                    type="text"
-                    id="player-two-chosen-name"
-                    placeholder="player two"
-                />
-                <button id="submit-name">Update Player Names</button>
             </div>
         </div>
         <script src="main.js"></script>
