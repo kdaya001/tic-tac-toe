@@ -50,10 +50,17 @@ changeName.addEventListener('click', function (event) {
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
             PLAYERS.playerOne.name = playerOneNameInput.value;
             PLAYERS.playerTwo.name = playerTwoNameInput.value;
-            document.querySelector('#active-player').textContent = getActivePlayer().name;
+            document.querySelector('#active-player').textContent =
+                getActivePlayer().name;
             updateDOM();
 
-            toggleHiddenButton(false, event, playerOneNameInput, playerTwoNameInput, 'Update Player Name');
+            toggleHiddenButton(
+                false,
+                event,
+                playerOneNameInput,
+                playerTwoNameInput,
+                'Update Player Name'
+            );
         } else {
             alert('Enter a valid entry for both players');
         }
@@ -61,28 +68,39 @@ changeName.addEventListener('click', function (event) {
 });
 
 const changeIcon = document.getElementById('submit-icons');
-changeIcon.addEventListener('click', function(event) {
+changeIcon.addEventListener('click', function (event) {
     const playerOneIconInput = document.getElementById('player-one-icon');
     const playerTwoIconInput = document.getElementById('player-two-icon');
-    if(event.target.textContent === 'Update Player Icon [Next Game]') {
+    if (event.target.textContent === 'Update Player Icon [Next Game]') {
         toggleHiddenButton(true, event, playerOneIconInput, playerTwoIconInput);
     } else {
-        if(playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
+        if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
             PLAYERS.playerOne.token = playerOneIconInput.value;
             PLAYERS.playerTwo.token = playerTwoIconInput.value;
-            toggleHiddenButton(false, event, playerOneIconInput, playerTwoIconInput, 'Update Player Icon [Next Game]')
-            
+            toggleHiddenButton(
+                false,
+                event,
+                playerOneIconInput,
+                playerTwoIconInput,
+                'Update Player Icon [Next Game]'
+            );
         } else {
             alert('Enter a valid entry for both players!');
         }
     }
 });
 
-function toggleHiddenButton(state, event, playerOneElement, playerTwoElement, buttonValue = '') {
-    if(state) {
+function toggleHiddenButton(
+    state,
+    event,
+    playerOneElement,
+    playerTwoElement,
+    buttonValue = ''
+) {
+    if (state) {
         playerOneElement.removeAttribute('type', 'hidden');
         playerTwoElement.removeAttribute('type', 'hidden');
-        event.target.textContent = "Update";
+        event.target.textContent = 'Update';
     } else {
         playerOneElement.setAttribute('type', 'hidden');
         playerTwoElement.setAttribute('type', 'hidden');
@@ -114,7 +132,6 @@ boxWrapper.addEventListener('click', function (event) {
 //function to assign value to the board AND game state
 function assignChosenValue(event) {
     if (event.target.textContent === '') {
-
         let num = Number(event.target.id.slice(-2));
         currentGameState[num - 1] = getActivePlayer().token;
 
@@ -211,8 +228,7 @@ function resetBoard() {
         box.textContent = '';
         box.style.backgroundColor = null;
     }
-    bottomBanner.innerHTML =
-        `Current Player: <span id="active-player">${PLAYERS.playerOne.name}</span>`;
+    bottomBanner.innerHTML = `Current Player: <span id="active-player">${PLAYERS.playerOne.name}</span>`;
     bottomBanner.style.color = null;
     PLAYERS.playerOne.activePlayer = true;
     PLAYERS.playerTwo.activePlayer = false;
@@ -224,13 +240,18 @@ function resetBoard() {
 }
 
 function updateDOM() {
-    document.getElementById('player-one-points').textContent = PLAYERS.playerOne.points;
-    document.getElementById('player-two-points').textContent = PLAYERS.playerTwo.points;
-    document.getElementById('player-one-name').textContent = PLAYERS.playerOne.name;
-    document.getElementById('player-two-name').textContent = PLAYERS.playerTwo.name;
-    
-    if(!winningState) {
-        document.getElementById('active-player').textContent = getActivePlayer().name;
+    document.getElementById('player-one-points').textContent =
+        PLAYERS.playerOne.points;
+    document.getElementById('player-two-points').textContent =
+        PLAYERS.playerTwo.points;
+    document.getElementById('player-one-name').textContent =
+        PLAYERS.playerOne.name;
+    document.getElementById('player-two-name').textContent =
+        PLAYERS.playerTwo.name;
+
+    if (!winningState) {
+        document.getElementById('active-player').textContent =
+            getActivePlayer().name;
     }
 }
 
@@ -248,22 +269,19 @@ function updateActivePlayer() {
 }
 
 function getActivePlayer() {
-    for(let player in PLAYERS) {
-        if(PLAYERS[player].activePlayer) {
+    for (let player in PLAYERS) {
+        if (PLAYERS[player].activePlayer) {
             return PLAYERS[player];
         }
     }
 }
 
-const moreOptions = document.getElementById('more-options');
-moreOptions.addEventListener('click', function(event) {
-    const options = document.getElementById('hidden-options');
-    const nav = document.getElementById('options-nav');
-
-        options.classList.toggle('hidden');
-        if(options.classList.contains('hidden')) {
-            event.target.textContent = "More Options";
-        } else {
-            event.target.textContent = "Hide";
-        }
+const hamburgerNav = document.querySelector('.icon');
+hamburgerNav.addEventListener('click', function () {
+    let x = document.getElementById('myLinks');
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+    }
 });

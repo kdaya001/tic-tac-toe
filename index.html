@@ -12,16 +12,31 @@
             href="https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@300;800&display=swap"
             rel="stylesheet"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
     </head>
     <body>
         <div id="outer-wrapper">
             <header>
                 <h1>Tic Tac Toe</h1>
             </header>
+            <div class="topnav">
+                <!-- Navigation links (hidden by default) -->
+                <div class="nav-padding" id="myLinks">
+                    <a id="submit-name" class="active">Update Player Names</a>
+                    <a id="submit-icons" class="active">Update Player Icon [Next Game]</a>
+                </div>
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a class="icon">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
             <div id="options-nav">
-                <button id="more-options">More Option</button>
-                <div class="line"></div>
-                <div id="hidden-options" class="hidden">
+                <!-- <button id="more-options">More Option</button> -->
+                <!-- <div class="line"></div> -->
+                <!-- <div id="hidden-options" class="hidden"> -->
                     <div id="update-name">
                         <input
                             type="hidden"
@@ -29,15 +44,15 @@
                             id="player-one-chosen-name"
                             placeholder="player one"
                         />
-                        <br/>
+                        <br />
                         <input
                             type="hidden"
                             type="text"
                             id="player-two-chosen-name"
                             placeholder="player two"
                         />
-                        <button id="submit-name">Update Player Names</button>
-                        <br/>
+                        <!-- <button id="submit-name">Update Player Names</button> -->
+                        <br />
                         <input
                             type="hidden"
                             type="text"
@@ -45,7 +60,7 @@
                             placeholder="enter icon here"
                             maxlength="1;"
                         />
-                        <br/>
+                        <br />
                         <input
                             type="hidden"
                             type="text"
@@ -53,9 +68,11 @@
                             placeholder="enter icon here"
                             maxlength="1;"
                         />
-                        <button id="submit-icons">Update Player Icon [Next Game]</button>
+                        <!-- <button id="submit-icons">
+                            Update Player Icon [Next Game]
+                        </button> -->
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
             <div id="points">
                 <p id="player-one">
