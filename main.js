@@ -84,6 +84,8 @@ changeIcon.addEventListener('click', function (event) {
                 playerTwoIconInput,
                 'Update Player Icon [Next Game]'
             );
+            document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
+            document.getElementById('p-two-icon').textContent = PLAYERS.playerTwo.token
         } else {
             alert('Enter a valid entry for both players!');
         }
@@ -260,11 +262,15 @@ function updateActivePlayer() {
     if (PLAYERS['playerOne'].activePlayer) {
         PLAYERS['playerOne'].activePlayer = false;
         PLAYERS['playerTwo'].activePlayer = true;
+        document.getElementById('player-one').style.backgroundColor = "green";
+        document.getElementById('player-two').style.backgroundColor = 'beige';
         activePlayerUI.textContent = PLAYERS.playerTwo.name;
     } else {
         PLAYERS['playerTwo'].activePlayer = false;
         PLAYERS['playerOne'].activePlayer = true;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
+        document.getElementById('player-two').style.backgroundColor = "green";
+        document.getElementById('player-one').style.backgroundColor = 'beige';
     }
 }
 

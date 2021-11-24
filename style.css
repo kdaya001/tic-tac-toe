@@ -12,7 +12,7 @@ input {
 }
 
 button {
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border: 0px none;
     height: 2em;
     margin: 15px;
@@ -24,7 +24,7 @@ h3 {
 
 #outer-wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr 4fr 8fr 3fr 3fr;
+    grid-template-columns: .5fr .5fr 4fr 4fr 4fr .5fr .5fr;
     grid-template-rows: 0.1fr 0.1fr 1fr 1fr 0.2fr 0.1fr 0.1fr;
 }
 
@@ -52,11 +52,6 @@ header {
     grid-column: 4 / span 1;
     grid-row: 1 / span 1;
     margin: auto;
-}
-
-#points {
-    grid-column: 4 / span 1;
-    grid-row: 2 / span 1;
 }
 
 #options-nav {
@@ -87,6 +82,12 @@ header {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+#p-two-icon, 
+#p-one-icon {
+    font-size: 5em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 #box-04,
 #box-05,
 #box-06 {
@@ -114,20 +115,28 @@ header {
 
 #player-one,
 #player-two {
-    border-radius: 30px;
+    /* border-radius: 20px; */
     margin-right: 1em;
     padding: 0.2em;
     margin-top: 0em;
-    background: beige;
+    background: rgb(189, 218, 201);
     text-align: center;
 }
 
 #player-one {
-    grid-column: 2 / span 1;
+    grid-column: 3 / span 1;
+    grid-row: 3 / span 1;
+    width: 40%;
+    margin-left: auto;
+    margin-right: 10px;
 }
 
 #player-two {
-    grid-column: 3 / span 1;
+    grid-column: 5 / span 1;
+    grid-row: 3 / span 1;
+    width: 40%;
+    margin-left: 10px;
+    margin-right: auto;
 }
 
 @media screen and (min-width: 600px) {
@@ -141,14 +150,14 @@ header {
     }
 
     #options-nav {
-        grid-column: 3 / span 1;
+        grid-column: 2 / span 1;
         grid-row: 2 / span 2;
         margin-left: auto;
         margin-right: 0;
     }
 
     input {
-        border-radius: 30px;
+        /* border-radius: 30px; */
         border: 0;
         height: 2em;
         padding: 1em;
@@ -197,6 +206,7 @@ header {
     .active {
         background-color: #04aa6d;
         color: white;
+
     }
 
     .nav-padding {

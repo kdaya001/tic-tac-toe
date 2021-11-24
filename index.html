@@ -26,7 +26,9 @@
                 <!-- Navigation links (hidden by default) -->
                 <div class="nav-padding" id="myLinks">
                     <a id="submit-name" class="active">Update Player Names</a>
-                    <a id="submit-icons" class="active">Update Player Icon [Next Game]</a>
+                    <a id="submit-icons" class="active"
+                        >Update Player Icon [Next Game]</a
+                    >
                 </div>
                 <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
                 <a class="icon">
@@ -37,53 +39,59 @@
                 <!-- <button id="more-options">More Option</button> -->
                 <!-- <div class="line"></div> -->
                 <!-- <div id="hidden-options" class="hidden"> -->
-                    <div id="update-name">
-                        <input
-                            type="hidden"
-                            type="text"
-                            id="player-one-chosen-name"
-                            placeholder="player one"
-                        />
-                        <br />
-                        <input
-                            type="hidden"
-                            type="text"
-                            id="player-two-chosen-name"
-                            placeholder="player two"
-                        />
-                        <!-- <button id="submit-name">Update Player Names</button> -->
-                        <br />
-                        <input
-                            type="hidden"
-                            type="text"
-                            id="player-one-icon"
-                            placeholder="enter icon here"
-                            maxlength="1;"
-                        />
-                        <br />
-                        <input
-                            type="hidden"
-                            type="text"
-                            id="player-two-icon"
-                            placeholder="enter icon here"
-                            maxlength="1;"
-                        />
-                        <!-- <button id="submit-icons">
+                <div id="update-name">
+                    <input
+                        type="hidden"
+                        type="text"
+                        id="player-one-chosen-name"
+                        placeholder="player one"
+                    />
+                    <br />
+                    <input
+                        type="hidden"
+                        type="text"
+                        id="player-two-chosen-name"
+                        placeholder="player two"
+                    />
+                    <!-- <button id="submit-name">Update Player Names</button> -->
+                    <br />
+                    <input
+                        type="hidden"
+                        type="text"
+                        id="player-one-icon"
+                        placeholder="enter icon here"
+                        maxlength="1"
+                    />
+                    <br />
+                    <input
+                        type="hidden"
+                        type="text"
+                        id="player-two-icon"
+                        placeholder="enter icon here"
+                        maxlength="1"
+                    />
+                    <!-- <button id="submit-icons">
                             Update Player Icon [Next Game]
                         </button> -->
-                    </div>
+                </div>
                 <!-- </div> -->
             </div>
-            <div id="points">
-                <p id="player-one">
-                    <span id="player-one-name">Player One</span>:
-                    <span id="player-one-points">0</span>
-                </p>
-                <p id="player-two">
-                    <span id="player-two-name">Player Two</span>:
-                    <span id="player-two-points">0</span>
-                </p>
+
+            <div id="player-one">
+                <br/>
+                <span id="player-one-name">Player One</span>:
+                <span id="player-one-points">0</span>
+                <br/>
+                <span id="p-one-icon">X</span>
             </div>
+            <div id="player-two">
+                </br/>
+                <span id="player-two-name">Player Two</span>:
+                <span id="player-two-points">0</span>
+                <br/>
+                <span id="p-two-icon">O</span>
+            </div>
+
             <div id="wrapper">
                 <div class="box" id="box-01"></div>
                 <div class="box" id="box-02"></div>
