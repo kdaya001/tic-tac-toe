@@ -20,6 +20,7 @@
             </header>
             <div id="options-nav">
                 <button id="more-options">More Option</button>
+                <div class="line"></div>
                 <div id="hidden-options" class="hidden">
                     <div id="update-name">
                         <input
@@ -28,6 +29,7 @@
                             id="player-one-chosen-name"
                             placeholder="player one"
                         />
+                        <br/>
                         <input
                             type="hidden"
                             type="text"
@@ -35,6 +37,23 @@
                             placeholder="player two"
                         />
                         <button id="submit-name">Update Player Names</button>
+                        <br/>
+                        <input
+                            type="hidden"
+                            type="text"
+                            id="player-one-icon"
+                            placeholder="enter icon here"
+                            maxlength="1;"
+                        />
+                        <br/>
+                        <input
+                            type="hidden"
+                            type="text"
+                            id="player-two-icon"
+                            placeholder="enter icon here"
+                            maxlength="1;"
+                        />
+                        <button id="submit-icons">Update Player Icon [Next Game]</button>
                     </div>
                 </div>
             </div>
@@ -48,7 +67,7 @@
                     <span id="player-two-points">0</span>
                 </p>
             </div>
-            <div id="wrapper" class="winner-straight">
+            <div id="wrapper">
                 <div class="box" id="box-01"></div>
                 <div class="box" id="box-02"></div>
                 <div class="box" id="box-03"></div>
@@ -60,7 +79,7 @@
                 <div class="box" id="box-09"></div>
             </div>
 
-            <div>
+            <div id="active-player-tracker">
                 <h3 id="bottom-banner">
                     Current Player: <span id="active-player">Player One</span>
                 </h3>

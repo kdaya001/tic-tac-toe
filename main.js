@@ -45,9 +45,7 @@ changeName.addEventListener('click', function (event) {
     );
 
     if (event.target.textContent === 'Update Player Names') {
-        playerOneNameInput.removeAttribute('type', 'hidden');
-        playerTwoNameInput.removeAttribute('type', 'hidden');
-        event.target.textContent = 'Update';
+        toggleHiddenButton(true, event, playerOneNameInput, playerTwoNameInput);
     } else {
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
             PLAYERS.playerOne.name = playerOneNameInput.value;
@@ -55,16 +53,44 @@ changeName.addEventListener('click', function (event) {
             document.querySelector('#active-player').textContent = getActivePlayer().name;
             updateDOM();
 
-            playerOneNameInput.setAttribute('type', 'hidden');
-            playerTwoNameInput.setAttribute('type', 'hidden');
-            playerOneNameInput.value = '';
-            playerTwoNameInput.value = '';
-            event.target.textContent = 'Update Player Names';
+            toggleHiddenButton(false, event, playerOneNameInput, playerTwoNameInput, 'Update Player Name');
         } else {
             alert('Enter a valid entry for both players');
         }
     }
 });
+
+const changeIcon = document.getElementById('submit-icons');
+changeIcon.addEventListener('click', function(event) {
+    const playerOneIconInput = document.getElementById('player-one-icon');
+    const playerTwoIconInput = document.getElementById('player-two-icon');
+    if(event.target.textContent === 'Update Player Icon [Next Game]') {
+        toggleHiddenButton(true, event, playerOneIconInput, playerTwoIconInput);
+    } else {
+        if(playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
+            PLAYERS.playerOne.token = playerOneIconInput.value;
+            PLAYERS.playerTwo.token = playerTwoIconInput.value;
+            toggleHiddenButton(false, event, playerOneIconInput, playerTwoIconInput, 'Update Player Icon [Next Game]')
+            
+        } else {
+            alert('Enter a valid entry for both players!');
+        }
+    }
+});
+
+function toggleHiddenButton(state, event, playerOneElement, playerTwoElement, buttonValue = '') {
+    if(state) {
+        playerOneElement.removeAttribute('type', 'hidden');
+        playerTwoElement.removeAttribute('type', 'hidden');
+        event.target.textContent = "Update";
+    } else {
+        playerOneElement.setAttribute('type', 'hidden');
+        playerTwoElement.setAttribute('type', 'hidden');
+        playerOneElement.value = '';
+        playerTwoElement.value = '';
+        event.target.textContent = buttonValue;
+    }
+}
 
 //Event listener for if reset score is selected
 const resetScore = document.getElementById('reset-score');
@@ -231,7 +257,9 @@ function getActivePlayer() {
 
 const moreOptions = document.getElementById('more-options');
 moreOptions.addEventListener('click', function(event) {
-    let options = document.getElementById('hidden-options')
+    const options = document.getElementById('hidden-options');
+    const nav = document.getElementById('options-nav');
+
         options.classList.toggle('hidden');
         if(options.classList.contains('hidden')) {
             event.target.textContent = "More Options";

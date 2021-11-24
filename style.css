@@ -23,8 +23,9 @@ h3 {
 }
 
 #outer-wrapper {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr 4fr 8fr 3fr 3fr;
+    grid-template-rows: .1fr .1fr 2fr .2fr .1fr .1fr;
 }
 
 #wrapper {
@@ -41,6 +42,39 @@ h3 {
 header {
     margin: auto;
 }
+
+header {
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 1;
+}
+
+#points {
+    grid-column: 4 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#options-nav {
+    grid-column: 4 / span 1;
+    grid-row: 6 / span 1;
+    margin: auto;    
+}
+
+#wrapper {
+    grid-column: 4 / span 1;
+    grid-row: 3 / span 1;
+}
+
+#button-nav {
+    grid-column: 4 / span 1;
+    grid-row: 5 / span 1;
+}
+
+#active-player-tracker {
+    grid-column: 4 / span 1;
+    grid-row: 4 / span 1;
+}
+
+
 
 #wrapper > * {
     display: flex;
@@ -71,7 +105,7 @@ header {
 
 #points {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr;
+    grid-template-columns: .5fr 1fr 1fr .5fr;
 }
 
 #player-one,
@@ -92,7 +126,7 @@ header {
     grid-column: 3 / span 1;
 }
 
-@media screen and (min-width: 385px) {
+@media screen and (min-width: 600px) {
     #wrapper {
         width: 385px;
     }
@@ -100,6 +134,13 @@ header {
     #wrapper > * {
         height: 8em;
         width: 8em;
+    }
+
+    #options-nav {
+        grid-column: 3/ span 1;
+        grid-row: 2 / span 2;
+        margin-left: auto;
+        margin-right: 0;
     }
 }
 
@@ -120,4 +161,9 @@ input {
 
 .hidden {
     display:none;
+}
+
+.line {
+    border: 1px solid black;
+    margin: 3px;
 }
