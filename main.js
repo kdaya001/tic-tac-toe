@@ -27,38 +27,16 @@ const WINNING_CONDITIONS = [
 const currentGameState = [null, null, null, null, null, null, null, null, null];
 let winningState = false;
 const bottomBanner = document.getElementById('bottom-banner');
-
 const activePlayerColor = 'green';
 const winnerColor = 'red';
-
 const playerOneDiv = document.getElementById('player-one');
 const playerTwoDiv = document.getElementById('player-two');
+const modal = document.getElementById('popup-modal');
 
-function toggleHiddenButton(
-    state,
-    event,
-    playerOneElement,
-    playerTwoElement,
-    buttonValue = ''
-) {
-    if (state) {
-        playerOneElement.removeAttribute('type', 'hidden');
-        playerTwoElement.removeAttribute('type', 'hidden');
-        event.target.textContent = 'Update';
-    } else {
-        playerOneElement.setAttribute('type', 'hidden');
-        playerTwoElement.setAttribute('type', 'hidden');
-        playerOneElement.value = '';
-        playerTwoElement.value = '';
-        event.target.textContent = buttonValue;
-    }
-}
-
-//function to assign value to the board AND game state
 function assignChosenValue(event) {
     if (event.target.textContent === '') {
-        let num = Number(event.target.id.slice(-2));
-        currentGameState[num - 1] = getActivePlayer().token;
+        let chosenIndex = Number(event.target.id.slice(-2));
+        currentGameState[chosenIndex - 1] = getActivePlayer().token;
 
         const para = document.createElement('p');
         const node = document.createTextNode(getActivePlayer().token);
@@ -69,7 +47,6 @@ function assignChosenValue(event) {
     }
 }
 
-//Function to check end conditions
 function checkGameEndConditions() {
     const boxes = document.querySelectorAll('.box');
     if (checkEndWinningState(boxes, currentGameState)) {
@@ -84,8 +61,6 @@ function checkGameEndConditions() {
         updateActivePlayer();
     }
 }
-
-//Function to check if a win condition has been met
 function checkEndWinningState(boxes, currentGameState) {
     for (condition of WINNING_CONDITIONS) {
         if (
@@ -100,14 +75,12 @@ function checkEndWinningState(boxes, currentGameState) {
     return false;
 }
 
-//function to change the color of the boxes
 function changeColor(condition, boxes) {
     for (let i = 0; i < 3; i++) {
         boxes[condition[i]].style.backgroundColor = winnerColor;
     }
 }
 
-//Function to check if there is a draw/tie
 function checkDrawState(boxes) {
     for (index in boxes) {
         if (boxes[index] === null) {
@@ -117,10 +90,7 @@ function checkDrawState(boxes) {
     return true;
 }
 
-//Function to trigger end game functionality if a draw or winner condition is met
 function endGame(activePlayer = false) {
-    const bottomBanner = document.getElementById('bottom-banner');
-
     let winningPlayer;
     if (activePlayer === false) {
         bottomBanner.textContent = `It's a draw`;
@@ -146,7 +116,6 @@ function endGame(activePlayer = false) {
     updatePoints(winningPlayer);
 }
 
-//function to update the points in the DOM
 function updatePoints(winningPlayer) {
     if (winningPlayer === 'playerOne') {
         PLAYERS.playerOne.points += 1;
@@ -156,7 +125,6 @@ function updatePoints(winningPlayer) {
     updateDOM();
 }
 
-//function to reset the board
 function resetBoard() {
     const boxes = document.querySelectorAll('.box');
     for (box of boxes) {
@@ -178,18 +146,13 @@ function resetBoard() {
 }
 
 function updateDOM() {
-    document.getElementById('player-one-points').textContent =
-        PLAYERS.playerOne.points;
-    document.getElementById('player-two-points').textContent =
-        PLAYERS.playerTwo.points;
-    document.getElementById('player-one-name').textContent =
-        PLAYERS.playerOne.name;
-    document.getElementById('player-two-name').textContent =
-        PLAYERS.playerTwo.name;
+    document.getElementById('player-one-points').textContent =PLAYERS.playerOne.points;
+    document.getElementById('player-two-points').textContent = PLAYERS.playerTwo.points;
+    document.getElementById('player-one-name').textContent = PLAYERS.playerOne.name;
+    document.getElementById('player-two-name').textContent = PLAYERS.playerTwo.name;
 
     if (!winningState) {
-        document.getElementById('active-player').textContent =
-            getActivePlayer().name;
+        document.getElementById('active-player').textContent = getActivePlayer().name;
     }
 }
 
@@ -221,10 +184,14 @@ function getActivePlayer() {
 function updateNavBar() {
     let navBar = document.getElementById('myLinks');
     if (navBar.style.display === 'block') {
-        navBar.style.display = 'none';
+        updateElementDisplay(navBar, 'none');;
     } else {
-        navBar.style.display = 'block';
+        updateElementDisplay(navBar, 'block');
     }
+}
+
+function updateElementDisplay(e, state) {
+    e.style.display = state;
 }
 
 function setupListeners() {
@@ -236,7 +203,6 @@ function setupListeners() {
         updateNavBar();
     });
 
-    //event listener to add click function for the game board
     const boxWrapper = document.querySelector('#wrapper');
     boxWrapper.addEventListener('click', function (event) {
         if (event.target.classList.contains('box')) {
@@ -246,7 +212,6 @@ function setupListeners() {
         }
     });
 
-    //Event listener for if reset score is selected
     const resetScore = document.getElementById('reset-score');
     resetScore.addEventListener('click', function () {
         PLAYERS.playerOne.points = 0;
@@ -255,78 +220,63 @@ function setupListeners() {
         updateDOM();
     });
 
-    //Event listener for if the Reset Board button is clicked
     const resetBoardButton = document.getElementById('reset-board');
     resetBoardButton.addEventListener('click', function () {
         resetBoard();
     });
 
-    //event listener for if Update Player names is selected
-    const changeName = document.getElementById('submit-name');
-    changeName.addEventListener('click', function (event) {
-        const modal = document.getElementById('popup-modal');
-        modal.style.display = 'block';
-
-        modalName.style.display = 'block';
-        modalIcon.style.display = 'none';
+    const updateNameNav = document.getElementById('submit-name');
+    updateNameNav.addEventListener('click', function (event) {
+        updateElementDisplay(modal, 'block');
+        updateElementDisplay(modalName, 'block');
+        updateElementDisplay(modalIcon, 'none');
     });
 
-    const iconName = document.querySelector('.submit-modal-name');
-    iconName.addEventListener('click', function () {
-        const modal = document.getElementById('popup-modal');
-        const playerOneNameInput = document.getElementById(
-            'player-one-chosen-name'
-        );
-        const playerTwoNameInput = document.getElementById(
-            'player-two-chosen-name'
-        );
+    const updateNameBtn = document.querySelector('.submit-modal-name');
+    updateNameBtn.addEventListener('click', function () {
+        const playerOneNameInput = document.getElementById('player-one-chosen-name');
+        const playerTwoNameInput = document.getElementById('player-two-chosen-name');
 
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
             PLAYERS.playerOne.name = playerOneNameInput.value;
             PLAYERS.playerTwo.name = playerTwoNameInput.value;
-            document.querySelector('#active-player').textContent =
-                getActivePlayer().name;
+            document.querySelector('#active-player').textContent = getActivePlayer().name;
             updateDOM();
             updateNavBar();
-            modal.style.display = 'none';
+            updateElementDisplay(modal, 'none');
         } else {
             alert('Enter a valid entry for both players');
         }
     });
 
-    const changeIcon = document.getElementById('submit-icons');
-    changeIcon.addEventListener('click', function (event) {
-        const modal = document.getElementById('popup-modal');
-        modal.style.display = 'block';
-
-        modalName.style.display = 'none';
-        modalIcon.style.display = 'block';
+    const updateIconNav = document.getElementById('submit-icons');
+    updateIconNav.addEventListener('click', function (event) {
+        updateElementDisplay(modal, 'block');
+        updateElementDisplay(modalName, 'none');
+        updateElementDisplay(modalIcon, 'block');
     });
 
-    const iconSubmit = document.querySelector('.submit-modal-icon');
-    iconSubmit.addEventListener('click', function () {
-        const modal = document.getElementById('popup-modal');
+    const updateIconBtn = document.querySelector('.submit-modal-icon');
+    updateIconBtn.addEventListener('click', function () {
         const playerOneIconInput = document.getElementById('player-one-icon');
         const playerTwoIconInput = document.getElementById('player-two-icon');
         if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
             PLAYERS.playerOne.token = playerOneIconInput.value;
             PLAYERS.playerTwo.token = playerTwoIconInput.value;
-            document.getElementById('p-one-icon').textContent =
-                PLAYERS.playerOne.token;
-            document.getElementById('p-two-icon').textContent =
-                PLAYERS.playerTwo.token;
-            modal.style.display = 'none';
+            document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
+            document.getElementById('p-two-icon').textContent = PLAYERS.playerTwo.token;
+            updateElementDisplay(modal, 'none');
             updateNavBar();
         } else {
             alert('Enter a valid entry for both players!');
         }
     });
 
-    const closeModalButton = document.querySelectorAll('.close-modal');
-    for (let closeButton of closeModalButton) {
+    const closeModalBtn = document.querySelectorAll('.close-modal');
+    for (let closeButton of closeModalBtn) {
         closeButton.addEventListener('click', function () {
-            const modal = document.getElementById('popup-modal');
-            modal.style.display = 'none';
+            updateElementDisplay(modal, 'none');
+            updateNavBar();
         });
     }
 }
