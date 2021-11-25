@@ -28,6 +28,12 @@ const currentGameState = [null, null, null, null, null, null, null, null, null];
 let winningState = false;
 const bottomBanner = document.getElementById('bottom-banner');
 
+const activePlayerColor = 'green';
+const winnerColor = 'red';
+
+const playerOneDiv = document.getElementById('player-one');
+const playerTwoDiv = document.getElementById('player-two');
+
 function toggleHiddenButton(
     state,
     event,
@@ -97,7 +103,7 @@ function checkEndWinningState(boxes, currentGameState) {
 //function to change the color of the boxes
 function changeColor(condition, boxes) {
     for (let i = 0; i < 3; i++) {
-        boxes[condition[i]].style.backgroundColor = 'red';
+        boxes[condition[i]].style.backgroundColor = winnerColor;
     }
 }
 
@@ -114,19 +120,29 @@ function checkDrawState(boxes) {
 //Function to trigger end game functionality if a draw or winner condition is met
 function endGame(activePlayer = false) {
     const bottomBanner = document.getElementById('bottom-banner');
+
     let winningPlayer;
     if (activePlayer === false) {
         bottomBanner.textContent = `It's a draw`;
+        playerOneDiv.style.backgroundColor = winnerColor;
+        playerTwoDiv.style.backgroundColor = winnerColor;
     } else {
         for (let player in PLAYERS) {
             if (PLAYERS[player].token === activePlayer) {
                 winningPlayer = player;
+                if(player === 'playerOne') {
+                    playerOneDiv.style.backgroundColor = winnerColor;
+                    playerTwoDiv.style.backgroundColor = null;
+                } else {
+                    playerTwoDiv.style.backgroundColor = winnerColor;
+                    playerOneDiv.style.backgroundColor = null;
+                }
             }
         }
         bottomBanner.innerHTML = `<span id="active-player">${PLAYERS[winningPlayer].name}</span> wins`;
     }
     winningState = true;
-    bottomBanner.style.color = 'red';
+    bottomBanner.style.color = winnerColor;
     updatePoints(winningPlayer);
 }
 
@@ -156,6 +172,9 @@ function resetBoard() {
     for (let index in currentGameState) {
         currentGameState[index] = null;
     }
+
+    playerOneDiv.style.backgroundColor = null;
+    playerTwoDiv.style.backgroundColor = null;
 }
 
 function updateDOM() {
@@ -179,15 +198,15 @@ function updateActivePlayer() {
     if (PLAYERS['playerOne'].activePlayer) {
         PLAYERS['playerOne'].activePlayer = false;
         PLAYERS['playerTwo'].activePlayer = true;
-        document.getElementById('player-one').style.backgroundColor = 'green';
-        document.getElementById('player-two').style.backgroundColor = 'beige';
+        playerOneDiv.style.backgroundColor = activePlayerColor;
+        playerTwoDiv.style.backgroundColor = null;
         activePlayerUI.textContent = PLAYERS.playerTwo.name;
     } else {
         PLAYERS['playerTwo'].activePlayer = false;
         PLAYERS['playerOne'].activePlayer = true;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
-        document.getElementById('player-two').style.backgroundColor = 'green';
-        document.getElementById('player-one').style.backgroundColor = 'beige';
+        playerTwoDiv.style.backgroundColor = activePlayerColor;
+        playerOneDiv.style.backgroundColor = null;
     }
 }
 
@@ -209,6 +228,9 @@ function updateNavBar() {
 }
 
 function setupListeners() {
+    const modalIcon = document.querySelector('.modal-content-icon');
+    const modalName = document.querySelector('.modal-content-name');
+
     const hamburgerNav = document.querySelector('.icon');
     hamburgerNav.addEventListener('click', function () {
         updateNavBar();
@@ -238,9 +260,6 @@ function setupListeners() {
     resetBoardButton.addEventListener('click', function () {
         resetBoard();
     });
-
-    const modalIcon = document.querySelector('.modal-content-icon');
-    const modalName = document.querySelector('.modal-content-name');
 
     //event listener for if Update Player names is selected
     const changeName = document.getElementById('submit-name');
