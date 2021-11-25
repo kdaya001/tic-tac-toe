@@ -12,7 +12,6 @@ input {
 }
 
 button {
-    /* border-radius: 10px; */
     border: 0px none;
     height: 2em;
     margin: 15px;
@@ -157,7 +156,6 @@ header {
     }
 
     input {
-        /* border-radius: 30px; */
         border: 0;
         height: 2em;
         padding: 1em;

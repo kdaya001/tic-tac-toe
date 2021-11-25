@@ -45,27 +45,30 @@ changeName.addEventListener('click', function (event) {
 
     modalName.style.display = 'block';
     modalIcon.style.display = 'none';
+});
 
-    const iconName = document.querySelector('.submit-modal-name');
-    iconName.addEventListener('click', function () {
-        const playerOneNameInput = document.getElementById(
-            'player-one-chosen-name'
-        );
-        const playerTwoNameInput = document.getElementById(
-            'player-two-chosen-name'
-        );
 
-        if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
-            PLAYERS.playerOne.name = playerOneNameInput.value;
-            PLAYERS.playerTwo.name = playerTwoNameInput.value;
-            document.querySelector('#active-player').textContent =
-                getActivePlayer().name;
-            updateDOM();
-            modal.style.display = 'none';
-        } else {
-            alert('Enter a valid entry for both players');
-        }
-    });
+const iconName = document.querySelector('.submit-modal-name');
+iconName.addEventListener('click', function () {
+    const modal = document.getElementById('popup-modal');
+    const playerOneNameInput = document.getElementById(
+        'player-one-chosen-name'
+    );
+    const playerTwoNameInput = document.getElementById(
+        'player-two-chosen-name'
+    );
+
+    if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
+        PLAYERS.playerOne.name = playerOneNameInput.value;
+        PLAYERS.playerTwo.name = playerTwoNameInput.value;
+        document.querySelector('#active-player').textContent =
+            getActivePlayer().name;
+        updateDOM();
+        updateNavBar();
+        modal.style.display = 'none';
+    } else {
+        alert('Enter a valid entry for both players');
+    }
 });
 
 const changeIcon = document.getElementById('submit-icons');
@@ -75,23 +78,31 @@ changeIcon.addEventListener('click', function (event) {
 
     modalName.style.display = 'none';
     modalIcon.style.display = 'block';
+});
 
-    const iconSubmit = document.querySelector('.submit-modal-icon');
-    iconSubmit.addEventListener('click', function () {
-        const playerOneIconInput = document.getElementById('player-one-icon');
-        const playerTwoIconInput = document.getElementById('player-two-icon');
-        if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
-            PLAYERS.playerOne.token = playerOneIconInput.value;
-            PLAYERS.playerTwo.token = playerTwoIconInput.value;
-            document.getElementById('p-one-icon').textContent =
-                PLAYERS.playerOne.token;
-            document.getElementById('p-two-icon').textContent =
-                PLAYERS.playerTwo.token;
-            modal.style.display = 'none';
-        } else {
-            alert('Enter a valid entry for both players!');
-        }
-    });
+const iconSubmit = document.querySelector('.submit-modal-icon');
+iconSubmit.addEventListener('click', function () {
+    const modal = document.getElementById('popup-modal');
+    const playerOneIconInput = document.getElementById('player-one-icon');
+    const playerTwoIconInput = document.getElementById('player-two-icon');
+    if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
+        PLAYERS.playerOne.token = playerOneIconInput.value;
+        PLAYERS.playerTwo.token = playerTwoIconInput.value;
+        document.getElementById('p-one-icon').textContent =
+            PLAYERS.playerOne.token;
+        document.getElementById('p-two-icon').textContent =
+            PLAYERS.playerTwo.token;
+        modal.style.display = 'none';
+        updateNavBar();
+    } else {
+        alert('Enter a valid entry for both players!');
+    }
+});
+
+const closeModalButton = document.querySelector('.close-modal');
+closeModalButton.addEventListener('click', function() {
+    const modal = document.getElementById('popup-modal');
+    modal.style.display = 'none';
 });
 
 function toggleHiddenButton(
@@ -286,10 +297,14 @@ function getActivePlayer() {
 
 const hamburgerNav = document.querySelector('.icon');
 hamburgerNav.addEventListener('click', function () {
-    let x = document.getElementById('myLinks');
-    if (x.style.display === 'block') {
-        x.style.display = 'none';
-    } else {
-        x.style.display = 'block';
-    }
+    updateNavBar();
 });
+
+function updateNavBar() {
+    let navBar = document.getElementById('myLinks');
+    if (navBar.style.display === 'block') {
+        navBar.style.display = 'none';
+    } else {
+        navBar.style.display = 'block';
+    }
+}
