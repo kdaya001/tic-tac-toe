@@ -182,7 +182,7 @@ function getActivePlayer() {
 }
 
 function updateNavBar() {
-    let navBar = document.getElementById('myLinks');
+    let navBar = document.getElementById('nav-links');
     if (navBar.style.display === 'block') {
         updateElementDisplay(navBar, 'none');;
     } else {
