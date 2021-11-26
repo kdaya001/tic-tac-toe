@@ -27,25 +27,25 @@ input {
 #container {
     display: grid;
     grid-template-columns: 2fr 5fr 3fr;
-    grid-template-rows: 1fr 5fr 2fr;
+    grid-template-rows: 1fr 4fr 2fr;
 }
 
 header {
     grid-row: 1 / span 1;
     grid-column: 1 / span 3;
     display:grid;
-    grid-template-columns: 3fr 5fr 2fr;
+    grid-template-columns: 3fr 4fr 2fr;
     grid-template-rows: 1fr;
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 1.4em;
     grid-column: 2 / span 1;
 }
 
 .socials img {
     width: 30px;
-    grid-column: 3 / span 1;
+    grid-column: 3 / span 2;
     float: right;
     margin-top: 5px;
     margin-right: 5px;
@@ -167,8 +167,9 @@ main {
 
 .topnav a {
     color: white;
-    padding: 12px 14px;
+    padding: 5px 14px;
     display: block;
+    font-size: .8em;
 }
 
 .topnav .icon {
@@ -192,13 +193,6 @@ main {
 
 .nav-padding {
     margin-left: 53px;
-}
-
-.line {
-    width: 14px;
-    height: 2px;
-    background-color: white;
-    margin: 3px 0;
 }
 
 .modal {
@@ -231,22 +225,33 @@ main {
         width: 8em;
     }
 
-    #options-nav {
-        grid-column: 2 / span 1;
-        grid-row: 2 / span 2;
-        margin-left: auto;
-        margin-right: 0;
+    header {
+        grid-template-columns: 1fr 2fr 3fr 2fr 1fr;
+    }
+
+    .socials img {
+        grid-column: 4 / span 2;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        grid-column: 3 / span 1;
     }
 
     .topnav {
-        grid-column: 1 / span 3;
+        grid-column: 1 / span 2;
     }
+
+    .topnav a {
+        padding: 12px 14px;
+    }
+
 
     #player-one,
     #player-two {
         margin-top: 0em;
         padding-top: 2em;
-        height: 90%;
+        height: 180px;
         width: 90%;
     }
 
