@@ -7,14 +7,10 @@ body {
     font-family: 'M PLUS 2', sans-serif;
 }
 
-input {
-    margin: 3px;
-}
-
 button {
     border: 0px none;
     height: 2em;
-    margin: 15px;
+    margin: 15px 0px;
 }
 
 h3 {
@@ -193,7 +189,7 @@ header {
     width: 80%;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 915px) {
     #wrapper {
         width: 385px;
     }
@@ -208,12 +204,6 @@ header {
         grid-row: 2 / span 2;
         margin-left: auto;
         margin-right: 0;
-    }
-
-    input {
-        border: 0;
-        height: 2em;
-        padding: 1em;
     }
 
     .topnav {
