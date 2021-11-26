@@ -78,10 +78,10 @@ function endGame(activePlayer = false) {
     } else {
         for (let player in PLAYERS) {
             let winSFX = new Audio('./sounds/sfx-win.wav');
-            winSFX.play(); 
+            winSFX.play();
             if (PLAYERS[player].token === activePlayer) {
                 winningPlayer = player;
-                if(player === 'playerOne') {
+                if (player === 'playerOne') {
                     playerOneDiv.style.backgroundColor = winnerColor;
                     playerTwoDiv.style.backgroundColor = null;
                 } else {
@@ -127,13 +127,18 @@ function resetBoard() {
 }
 
 function updateDOM() {
-    document.getElementById('player-one-points').textContent =PLAYERS.playerOne.points;
-    document.getElementById('player-two-points').textContent = PLAYERS.playerTwo.points;
-    document.getElementById('player-one-name').textContent = PLAYERS.playerOne.name;
-    document.getElementById('player-two-name').textContent = PLAYERS.playerTwo.name;
+    document.getElementById('player-one-points').textContent =
+        PLAYERS.playerOne.points;
+    document.getElementById('player-two-points').textContent =
+        PLAYERS.playerTwo.points;
+    document.getElementById('player-one-name').textContent =
+        PLAYERS.playerOne.name;
+    document.getElementById('player-two-name').textContent =
+        PLAYERS.playerTwo.name;
 
     if (!winningState) {
-        document.getElementById('active-player').textContent = getActivePlayer().name;
+        document.getElementById('active-player').textContent =
+            getActivePlayer().name;
     }
 }
 
@@ -165,7 +170,7 @@ function getActivePlayer() {
 function updateNavBar() {
     let navBar = document.getElementById('nav-links');
     if (navBar.style.display === 'block') {
-        updateElementDisplay(navBar, 'none');;
+        updateElementDisplay(navBar, 'none');
     } else {
         updateElementDisplay(navBar, 'block');
     }
@@ -177,11 +182,11 @@ function updateElementDisplay(e, state) {
 
 function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
     const boxes = document.querySelectorAll('.box');
-    for(let index in currentGameState) {
+    for (let index in currentGameState) {
         const curBox = currentGameState[index];
         if (curBox !== null) {
             let replaceValue;
-            if(curBox === PLAYERS.playerOne.token) {
+            if (curBox === PLAYERS.playerOne.token) {
                 replaceValue = playerOneNewIcon;
             } else {
                 replaceValue = playerTwoNewIcon;
@@ -210,7 +215,7 @@ function setupListeners() {
                     let activePlayerToken = getActivePlayer().token;
                     currentGameState[chosenIndex - 1] = activePlayerToken;
                     event.target.appendChild(createBoxData(activePlayerToken));
-                    
+
                     const boxes = document.querySelectorAll('.box');
                     if (checkEndWinningState(boxes, currentGameState)) {
                         setTimeout(function () {
@@ -250,13 +255,18 @@ function setupListeners() {
 
     const updateNameBtn = document.querySelector('.submit-modal-name');
     updateNameBtn.addEventListener('click', function () {
-        const playerOneNameInput = document.getElementById('player-one-chosen-name');
-        const playerTwoNameInput = document.getElementById('player-two-chosen-name');
+        const playerOneNameInput = document.getElementById(
+            'player-one-chosen-name'
+        );
+        const playerTwoNameInput = document.getElementById(
+            'player-two-chosen-name'
+        );
 
         if (playerOneNameInput.value !== '' && playerTwoNameInput !== '') {
             PLAYERS.playerOne.name = playerOneNameInput.value;
             PLAYERS.playerTwo.name = playerTwoNameInput.value;
-            document.querySelector('#active-player').textContent = getActivePlayer().name;
+            document.querySelector('#active-player').textContent =
+                getActivePlayer().name;
             updateDOM();
             updateNavBar();
             updateElementDisplay(modal, 'none');
@@ -277,11 +287,16 @@ function setupListeners() {
         const playerOneIconInput = document.getElementById('player-one-icon');
         const playerTwoIconInput = document.getElementById('player-two-icon');
         if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
-            updateBoardIconState(playerOneIconInput.value, playerTwoIconInput.value);
+            updateBoardIconState(
+                playerOneIconInput.value,
+                playerTwoIconInput.value
+            );
             PLAYERS.playerOne.token = playerOneIconInput.value;
             PLAYERS.playerTwo.token = playerTwoIconInput.value;
-            document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
-            document.getElementById('p-two-icon').textContent = PLAYERS.playerTwo.token;
+            document.getElementById('p-one-icon').textContent =
+                PLAYERS.playerOne.token;
+            document.getElementById('p-two-icon').textContent =
+                PLAYERS.playerTwo.token;
             updateElementDisplay(modal, 'none');
             updateNavBar();
         } else {
