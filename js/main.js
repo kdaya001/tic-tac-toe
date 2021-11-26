@@ -32,6 +32,7 @@ const winnerColor = 'red';
 const playerOneDiv = document.getElementById('player-one');
 const playerTwoDiv = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
+const resetBoardBtn = document.getElementById('reset-board');
 
 function updateBoxData(data) {
     const para = document.createElement('p');
@@ -69,6 +70,7 @@ function checkDrawState(boxes) {
 
 function endGame(activePlayer = false) {
     let winningPlayer;
+    
 
     if (activePlayer === false) {
         let drawSFX = new Audio('./sounds/sfx-draw.wav');
@@ -92,6 +94,8 @@ function endGame(activePlayer = false) {
             }
         }
         bottomBanner.innerHTML = `<span id="active-player">${PLAYERS[winningPlayer].name}</span> wins`;
+
+        resetBoardBtn.textContent = "New Game";
     }
     winningState = true;
     bottomBanner.style.color = winnerColor;
@@ -112,7 +116,6 @@ function resetBoard() {
     for (box of boxes) {
         box.textContent = '';
         box.style.backgroundColor = null;
-        console.log(box);
     }
     bottomBanner.innerHTML = `Current Player: <span id="active-player">${PLAYERS.playerOne.name}</span>`;
     bottomBanner.style.color = null;
@@ -126,6 +129,8 @@ function resetBoard() {
 
     playerOneDiv.style.backgroundColor = null;
     playerTwoDiv.style.backgroundColor = null;
+
+    resetBoardBtn.textContent = "Reset Board";
 }
 
 function updateDOM() {
