@@ -5,6 +5,7 @@ body * {
 body {
     background-color: rgb(152, 218, 196);
     font-family: 'Press Start 2P', cursive;
+    background-image: url("./images/background.png");
 }
 
 button {
