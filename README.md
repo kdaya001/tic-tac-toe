@@ -9,6 +9,8 @@ Assets:
     - [here](https://fonts.google.com/specimen/Press+Start+2P)
 * Images:
     - [here](https://pressstart.vip/)
+* Audio:
+    [here](https://opengameart.org/content/512-sound-effects-8-bit-style)
 
 ## Technical Requirements:
 * Render a game in the browser
