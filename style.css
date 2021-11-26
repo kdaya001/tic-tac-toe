@@ -14,7 +14,7 @@ button {
     margin: 15px 0px;
 }
 
-h3 {
+h3, h1 {
     text-align: center;
     margin-bottom: 0px;
 }
@@ -40,15 +40,20 @@ header {
 
 h1 {
     font-size: 1.4em;
-    grid-column: 2 / span 1;
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 1;
 }
 
 .socials img {
     width: 30px;
-    grid-column: 3 / span 2;
     float: right;
     margin-top: 5px;
     margin-right: 5px;
+}
+
+.socials {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1
 }
 
 main {
@@ -157,7 +162,7 @@ main {
 .topnav {
     overflow:hidden;
     position: relative;
-    grid-column: 1 / span 1;
+    grid-column: 1 / span 2;
     grid-row: 1 / span 1;
 }
 
@@ -229,14 +234,17 @@ main {
         grid-template-columns: 1fr 2fr 3fr 2fr 1fr;
     }
 
-    .socials img {
+    .socials {
         grid-column: 4 / span 2;
     }
 
     h1 {
         font-size: 1.8em;
         grid-column: 3 / span 1;
+        grid-row: 1 / span 1;
+        margin: auto;
     }
+    
 
     .topnav {
         grid-column: 1 / span 2;
@@ -252,7 +260,7 @@ main {
         margin-top: 0em;
         padding-top: 2em;
         height: 180px;
-        width: 90%;
+        width: 50%;
     }
 
     #player-one {
