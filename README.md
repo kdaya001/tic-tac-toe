@@ -34,6 +34,7 @@ Assets:
 
 ### Basic UI Layout 
 - Initial Wireframe Design
+    * Note: Upon creating the below design, it was not visually appealing, the design was therefore changed to the actual design listed below
 ![Wireframe](/images/basic-layout-wireframe.jpg)
 - Final design
     - Mobile:
@@ -58,9 +59,6 @@ Assets:
 * Store player choices
 * Allow player to change name
 * Allow player to change icon
-
-
-
 
 ### Assumptions
 * There is no way for a the non active player to win that is instigated by the active player. i.e. on the players turn, the player cannot allow the non-active player to win without the non active player making a selectin
