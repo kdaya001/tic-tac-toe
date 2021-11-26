@@ -129,7 +129,6 @@ header {
 }
 
 .topnav {
-    display: block;
     overflow: hidden;
     position: relative;
     grid-column: 1 / span 5;
@@ -143,8 +142,6 @@ header {
 .topnav a {
     color: white;
     padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
     display: block;
 }
 
@@ -157,17 +154,24 @@ header {
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: beige;
     color: black;
 }
 
 .active {
-    background-color: #04aa6d;
+    background-color: #4f8ac9;
     color: white;
 }
 
 .nav-padding {
     margin-left: 53px;
+}
+
+.line {
+    width: 14px;
+    height: 2px;
+    background-color: white;
+    margin: 3px 0;
 }
 
 .modal {
