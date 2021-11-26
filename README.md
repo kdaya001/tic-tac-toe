@@ -42,6 +42,9 @@ Assets:
     - Desktop
 ![Desktop Design](/images/game-design-desktop.png)
 
+### Demo
+![Demo](/images/demo-gif.gif)
+
 ### Game Logic (high level):
 * Win conditions: 
     * If row 1 matches
