@@ -25,12 +25,12 @@ Assets:
 
 ## Planning
 ### Game Rules:
-* Players: 2 players (associated to 2 different token or colours)
+* Players: 2 players (associated to 2 different tokens/icons)
 * Player board: The player board is a 3 x 3 grid
 * Player turn:
     * The player chooses one of nine (unfilled) boxes to place their symbol in. Player turn then ends and the alternate player triggers player turn
-* End conditions: Either a player wins/ties OR there are no more empty squares available
-* Win condition: A player wins if they have 3 of their symbols in either a row - either horizontally, vertically or diagonally 
+* End conditions: Either a player wins OR there are no more empty squares available (tie/draw)
+* Win condition: A player wins if they have 3 of their symbols/tokens in either a row - either horizontally, vertically or diagonally 
 
 ### Basic UI Layout 
 - Initial Wireframe Design

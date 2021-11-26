@@ -33,7 +33,7 @@ const playerOneDiv = document.getElementById('player-one');
 const playerTwoDiv = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
 
-function createBoxData(data) {
+function updateBoxData(data) {
     const para = document.createElement('p');
     const node = document.createTextNode(data);
     para.appendChild(node);
@@ -194,7 +194,7 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
                 replaceValue = playerTwoNewIcon;
             }
             boxes[index].textContent = '';
-            boxes[index].appendChild(createBoxData(replaceValue));
+            boxes[index].appendChild(updateBoxData(replaceValue));
         }
     }
 }
@@ -216,7 +216,7 @@ function setupListeners() {
                     let chosenIndex = Number(event.target.id.slice(-2));
                     let activePlayerToken = getActivePlayer().token;
                     currentGameState[chosenIndex - 1] = activePlayerToken;
-                    event.target.appendChild(createBoxData(activePlayerToken));
+                    event.target.appendChild(updateBoxData(activePlayerToken));
 
                     const boxes = document.querySelectorAll('.box');
                     if (checkEndWinningState(boxes, currentGameState)) {

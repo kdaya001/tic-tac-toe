@@ -248,14 +248,14 @@ main {
         grid-column: 2 / span 1;
         grid-row: 1 / span 1;
         margin-left: auto;
-        margin-right: 0px;
+        margin-right: 10px;
         
     }
     
     #player-two {
         grid-column: 4 / span 1;
         grid-row: 1 / span 1;
-        margin-left: 0px;
+        margin-left: 10px;
         margin-right: auto;
     }
 
@@ -267,6 +267,12 @@ main {
     #button-nav {
         grid-column: 3 / span 1;
         grid-row: 3 / span 1;
+    }
+}
+
+@media screen and (max-width: 423px) {
+    h1 {
+        font-size: 1em;
     }
 }
 
