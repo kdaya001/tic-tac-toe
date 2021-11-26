@@ -37,9 +37,9 @@ Assets:
 ![Wireframe](/images/basic-layout-wireframe.jpg)
 - Final design
     - Mobile:
-![Mobile Design](/images/game-design-mobile)
+![Mobile Design](/images/game-design-mobile.png)
     - Desktop
-![Desktop Design](/images/game-design-desktop)
+![Desktop Design](/images/game-design-desktop.png)
 
 ### Game Logic (high level):
 * Win conditions: 
