@@ -148,12 +148,6 @@ main {
     border-left: 1px solid black;
 }
 
-.displayValue {
-    margin: auto;
-    font-size: 50px;
-    animation: expand 0.2s ease-in;
-}
-
 #points {
     display: grid;
     grid-template-columns: 0.5fr 1fr 1fr 0.5fr;
@@ -286,6 +280,23 @@ main {
     #button-nav {
         grid-column: 3 / span 1;
         grid-row: 3 / span 1;
+    }
+}
+
+.displayValue {
+    margin: auto;
+    font-size: 50px;
+    animation: expand 0.2s ease-in;
+}
+
+.blink {
+    animation: blinker 1s linear 5;
+}
+
+
+@keyframes blinker {
+    50% {
+    opacity: 0;
     }
 }
 

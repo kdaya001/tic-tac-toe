@@ -50,6 +50,7 @@ function checkEndWinningState(boxes, currentGameState) {
         ) {
             for (let i = 0; i < 3; i++) {
                 boxes[condition[i]].style.backgroundColor = winnerColor;
+                boxes[condition[i]].childNodes[0].classList.add('blink');
             }
             return true;
         }
@@ -111,6 +112,7 @@ function resetBoard() {
     for (box of boxes) {
         box.textContent = '';
         box.style.backgroundColor = null;
+        console.log(box);
     }
     bottomBanner.innerHTML = `Current Player: <span id="active-player">${PLAYERS.playerOne.name}</span>`;
     bottomBanner.style.color = null;
