@@ -1,7 +1,8 @@
-# tic-tac-toe
+# Tic Tac Toe
 
 General Assembly Software Engineering Immersive - Project 1
-* Live Link: [here](https://kdaya001.github.io/tic-tac-toe/)
+
+### Live Link: [here](https://kdaya001.github.io/tic-tac-toe/)
 
 Assets:
 * Font: [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
@@ -32,7 +33,7 @@ Assets:
 * End conditions: Either a player wins OR there are no more empty squares available (tie/draw)
 * Win condition: A player wins if they have 3 of their symbols/tokens in either a row - either horizontally, vertically or diagonally 
 
-### Basic UI Layout 
+### UI 
 Final design
 
 Mobile:
@@ -84,6 +85,6 @@ Desktop
 
 
 ### Initial Wireframe Design
-* Note: Upon creating the below design, it was not visually appealing, the design was therefore changed to the actual design listed below
+* Note: Upon creating the below design, it was not visually appealing, the design was therefore changed to the actual design shown above.
 
 ![Wireframe](/images/basic-layout-wireframe.jpg)
