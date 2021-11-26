@@ -33,17 +33,21 @@ Assets:
 * Win condition: A player wins if they have 3 of their symbols/tokens in either a row - either horizontally, vertically or diagonally 
 
 ### Basic UI Layout 
-- Initial Wireframe Design
-    * Note: Upon creating the below design, it was not visually appealing, the design was therefore changed to the actual design listed below
-![Wireframe](/images/basic-layout-wireframe.jpg)
-- Final design
-    - Mobile:
+Final design
+
+Mobile:
+
 ![Mobile Design](/images/game-design-mobile.png)
-    - Desktop
+   
+Desktop
+
 ![Desktop Design](/images/game-design-desktop.png)
 
 ### Demo
 ![Demo](/images/demo-gif.gif)
+
+
+## Initial planning 
 
 ### Game Logic (high level):
 * Win conditions: 
@@ -59,9 +63,27 @@ Assets:
 * Track active player
 * Get the active box that is selected
 * Store player choices
-* Store player choices
-* Allow player to change name
-* Allow player to change icon
+
+### Initial Problem breakdown:
+* Create a function for win condtion:
+    * Check if win conditions are met (3 in a row)
+    * Check if win conditions are met (3 in a column)
+    * Check if win conditions are met (3 diagonally)
+    * If win is triggered return the player that won otherwise return null
+* Create a function to add the active players token to chosen (empty) box
+* Add click event listeners to container div for the 3x3 grid (to utilise [bubbling](https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles))
+    * Use event.target to set or get the value of the clicked box/inner `div`
+    * Use logic to ensure an existing selection cannot be overwritten
+* Track active player and token in an object
+* Additonal:
+    * Allow player to change name
+    * Allow player to change icon
 
 ### Assumptions
 * There is no way for a the non active player to win that is instigated by the active player. i.e. on the players turn, the player cannot allow the non-active player to win without the non active player making a selectin
+
+
+### Initial Wireframe Design
+* Note: Upon creating the below design, it was not visually appealing, the design was therefore changed to the actual design listed below
+
+![Wireframe](/images/basic-layout-wireframe.jpg)
