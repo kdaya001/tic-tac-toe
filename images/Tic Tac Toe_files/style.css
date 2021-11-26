@@ -19,10 +19,6 @@ h3, h1 {
     margin-bottom: 0px;
 }
 
-h3 {
-    font-size: 1em;
-}
-
 input {
     margin-bottom: .5em;
     padding: .5em;
@@ -127,6 +123,7 @@ main {
 #p-two-icon,
 #p-one-icon {
     font-size: 4em;
+    /* padding-top:100px; */
 }
 
 #box-04,
@@ -141,6 +138,11 @@ main {
 #box-08 {
     border-right: 1px solid black;
     border-left: 1px solid black;
+}
+
+#points {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 0.5fr;
 }
 
 .topnav {
@@ -241,21 +243,23 @@ main {
 
     #player-one,
     #player-two {
+        margin-top: 0em;
         padding-top: 2em;
+        height: 180px;
     }
 
     #player-one {
         grid-column: 2 / span 1;
         grid-row: 1 / span 1;
         margin-left: auto;
-        margin-right: 0px;
+        margin-right: 10px;
         
     }
     
     #player-two {
         grid-column: 4 / span 1;
         grid-row: 1 / span 1;
-        margin-left: 0px;
+        margin-left: 10px;
         margin-right: auto;
     }
 
