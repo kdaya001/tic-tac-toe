@@ -68,12 +68,17 @@ function checkDrawState(boxes) {
 
 function endGame(activePlayer = false) {
     let winningPlayer;
+
     if (activePlayer === false) {
+        let drawSFX = new Audio('./sounds/sfx-draw.wav');
+        drawSFX.play();
         bottomBanner.textContent = `It's a draw`;
         playerOneDiv.style.backgroundColor = winnerColor;
         playerTwoDiv.style.backgroundColor = winnerColor;
     } else {
         for (let player in PLAYERS) {
+            let winSFX = new Audio('./sounds/sfx-win.wav');
+            winSFX.play(); 
             if (PLAYERS[player].token === activePlayer) {
                 winningPlayer = player;
                 if(player === 'playerOne') {
