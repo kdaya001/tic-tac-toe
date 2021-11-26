@@ -33,34 +33,14 @@ const playerOneDiv = document.getElementById('player-one');
 const playerTwoDiv = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
 
-function assignChosenValue(event) {
-    if (event.target.textContent === '') {
-        let chosenIndex = Number(event.target.id.slice(-2));
-        currentGameState[chosenIndex - 1] = getActivePlayer().token;
-
-        const para = document.createElement('p');
-        const node = document.createTextNode(getActivePlayer().token);
-        para.appendChild(node);
-        para.classList.add('displayValue');
-        event.target.appendChild(para);
-        checkGameEndConditions();
-    }
+function createBoxData(data) {
+    const para = document.createElement('p');
+    const node = document.createTextNode(data);
+    para.appendChild(node);
+    para.classList.add('displayValue');
+    return para;
 }
 
-function checkGameEndConditions() {
-    const boxes = document.querySelectorAll('.box');
-    if (checkEndWinningState(boxes, currentGameState)) {
-        setTimeout(function () {
-            endGame(getActivePlayer().token);
-        }, 1);
-    } else if (checkDrawState(currentGameState)) {
-        setTimeout(function () {
-            endGame();
-        }, 1);
-    } else {
-        updateActivePlayer();
-    }
-}
 function checkEndWinningState(boxes, currentGameState) {
     for (condition of WINNING_CONDITIONS) {
         if (
@@ -68,17 +48,13 @@ function checkEndWinningState(boxes, currentGameState) {
             currentGameState[condition[1]] === getActivePlayer().token &&
             currentGameState[condition[2]] === getActivePlayer().token
         ) {
-            changeColor(condition, boxes);
+            for (let i = 0; i < 3; i++) {
+                boxes[condition[i]].style.backgroundColor = winnerColor;
+            }
             return true;
         }
     }
     return false;
-}
-
-function changeColor(condition, boxes) {
-    for (let i = 0; i < 3; i++) {
-        boxes[condition[i]].style.backgroundColor = winnerColor;
-    }
 }
 
 function checkDrawState(boxes) {
@@ -206,11 +182,7 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
                 replaceValue = playerTwoNewIcon;
             }
             boxes[index].textContent = '';
-            const para = document.createElement('p');
-            const node = document.createTextNode(replaceValue);
-            para.appendChild(node);
-            para.classList.add('displayValue');
-            boxes[index].appendChild(para);
+            boxes[index].appendChild(createBoxData(replaceValue));
         }
     }
 }
@@ -228,7 +200,25 @@ function setupListeners() {
     boxWrapper.addEventListener('click', function (event) {
         if (event.target.classList.contains('box')) {
             if (!winningState) {
-                assignChosenValue(event);
+                if (event.target.textContent === '') {
+                    let chosenIndex = Number(event.target.id.slice(-2));
+                    let activePlayerToken = getActivePlayer().token;
+                    currentGameState[chosenIndex - 1] = activePlayerToken;
+                    event.target.appendChild(createBoxData(activePlayerToken));
+                    
+                    const boxes = document.querySelectorAll('.box');
+                    if (checkEndWinningState(boxes, currentGameState)) {
+                        setTimeout(function () {
+                            endGame(getActivePlayer().token);
+                        }, 1);
+                    } else if (checkDrawState(currentGameState)) {
+                        setTimeout(function () {
+                            endGame();
+                        }, 1);
+                    } else {
+                        updateActivePlayer();
+                    }
+                }
             }
         }
     });
