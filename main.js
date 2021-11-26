@@ -194,6 +194,27 @@ function updateElementDisplay(e, state) {
     e.style.display = state;
 }
 
+function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
+    const boxes = document.querySelectorAll('.box');
+    for(let index in currentGameState) {
+        const curBox = currentGameState[index];
+        if (curBox !== null) {
+            let replaceValue;
+            if(curBox === PLAYERS.playerOne.token) {
+                replaceValue = playerOneNewIcon;
+            } else {
+                replaceValue = playerTwoNewIcon;
+            }
+            boxes[index].textContent = '';
+            const para = document.createElement('p');
+            const node = document.createTextNode(replaceValue);
+            para.appendChild(node);
+            para.classList.add('displayValue');
+            boxes[index].appendChild(para);
+        }
+    }
+}
+
 function setupListeners() {
     const modalIcon = document.querySelector('.modal-content-icon');
     const modalName = document.querySelector('.modal-content-name');
@@ -261,6 +282,7 @@ function setupListeners() {
         const playerOneIconInput = document.getElementById('player-one-icon');
         const playerTwoIconInput = document.getElementById('player-two-icon');
         if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
+            updateBoardIconState(playerOneIconInput.value, playerTwoIconInput.value);
             PLAYERS.playerOne.token = playerOneIconInput.value;
             PLAYERS.playerTwo.token = playerTwoIconInput.value;
             document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
