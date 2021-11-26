@@ -12,62 +12,73 @@
         />
     </head>
     <body>
-        <div id="outer-wrapper">
+        <div id="container">
             <header>
                 <h1>Tic Tac Toe</h1>
+                <nav class="topnav">
+                    <div class="nav-padding" id="nav-links">
+                        <a id="submit-name" class="active"
+                            >Update Player Names</a
+                        >
+                        <a id="submit-icons" class="active"
+                            >Update Player Icon</a
+                        >
+                    </div>
+                    <img
+                        src="images/nav-bar.png"
+                        alt="nav-bar-button"
+                        class="icon"
+                    />
+                </nav>
+                <aside class="socials">
+                    <a href="https://github.com/kdaya001/tic-tac-toe"
+                        ><img src="images/github-icon.png" alt="github"
+                    /></a>
+                    <a href="https://www.linkedin.com/in/karishma-daya/"
+                        ><img src="images/linkedin-icon.png" alt="linkedin"
+                    /></a>
+                </aside>
             </header>
-            <nav class="topnav">
-                <div class="nav-padding" id="nav-links">
-                    <a id="submit-name" class="active">Update Player Names</a>
-                    <a id="submit-icons" class="active">Update Player Icon</a>
-                </div>
-                <img
-                    src="images/nav-bar.png"
-                    alt="nav-bar-button"
-                    class="icon"
-                />
-            </nav>
-            <section id="player-one">
-                <span id="player-one-name">Player One</span>:
-                <span id="player-one-points">0</span>
-                <br />
-                <br />
-                <span id="p-one-icon">X</span>
-            </section>
-            <section id="player-two">
-                <span id="player-two-name">Player Two</span>:
-                <span id="player-two-points">0</span>
-                <br />
-                <br />
-                <span id="p-two-icon">O</span>
-            </section>
 
-            <section id="wrapper">
-                <div class="box" id="box-01"></div>
-                <div class="box" id="box-02"></div>
-                <div class="box" id="box-03"></div>
-                <div class="box" id="box-04"></div>
-                <div class="box" id="box-05"></div>
-                <div class="box" id="box-06"></div>
-                <div class="box" id="box-07"></div>
-                <div class="box" id="box-08"></div>
-                <div class="box" id="box-09"></div>
-            </section>
+            <main>
+                <section id="player-one">
+                    <span id="player-one-name">Player One</span>:
+                    <span id="player-one-points">0</span>
+                    <br />
+                    <br />
+                    <span id="p-one-icon">X</span>
+                </section>
+                <section id="player-two">
+                    <span id="player-two-name">Player Two</span>:
+                    <span id="player-two-points">0</span>
+                    <br />
+                    <br />
+                    <span id="p-two-icon">O</span>
+                </section>
 
-            <section id="active-player-tracker">
-                <h3 id="bottom-banner">
-                    Current Player: <span id="active-player">Player One</span>
-                </h3>
-            </section>
-            <nav id="button-nav">
-                <button id="reset-board" type="button">Reset Board</button>
-                <button id="reset-score" type="button">Reset Score</button>
-            </nav>
+                <section id="wrapper">
+                    <div class="box" id="box-01"></div>
+                    <div class="box" id="box-02"></div>
+                    <div class="box" id="box-03"></div>
+                    <div class="box" id="box-04"></div>
+                    <div class="box" id="box-05"></div>
+                    <div class="box" id="box-06"></div>
+                    <div class="box" id="box-07"></div>
+                    <div class="box" id="box-08"></div>
+                    <div class="box" id="box-09"></div>
+                </section>
 
-            <aside class="socials">
-                <a href="https://github.com/kdaya001/tic-tac-toe"><img src="images/github-icon.png" alt="github"/></a>
-                <a href="https://www.linkedin.com/in/karishma-daya/"><img src="images/linkedin-icon.png" alt="linkedin"/></a>
-            </aside>
+                <section id="active-player-tracker">
+                    <h3 id="bottom-banner">
+                        Current Player:
+                        <span id="active-player">Player One</span>
+                    </h3>
+                </section>
+                <nav id="button-nav">
+                    <button id="reset-board" type="button">Reset Board</button>
+                    <button id="reset-score" type="button">Reset Score</button>
+                </nav>
+            </main>
         </div>
 
         <section id="popup-modal" class="modal">
@@ -107,8 +118,6 @@
                 <button class="close-modal">Close</button>
             </section>
         </section>
-
-
 
         <script src="main.js"></script>
     </body>
