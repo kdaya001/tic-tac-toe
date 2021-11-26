@@ -1,26 +1,22 @@
 # tic-tac-toe
 
-GA SEI - Project 1
+General Assembly Software Engineering Immersive - Project 1
 * Live Link: [here](https://kdaya001.github.io/tic-tac-toe/)
 
 Assets:
-* Font: 
-    - [here](https://fonts.google.com/specimen/M+PLUS+2)
-    - [here](https://fonts.google.com/specimen/Press+Start+2P)
-* Images:
-    - [here](https://pressstart.vip/)
-* Audio:
-    [here](https://opengameart.org/content/512-sound-effects-8-bit-style)
+* Font: [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
+* Images: [Pressstart](https://pressstart.vip/)
+* Audio: [SFX](https://opengameart.org/content/512-sound-effects-8-bit-style)
 
 ## Technical Requirements:
-* Render a game in the browser
-* Switch turns between more than one player
-* Design logic for winning & visually display which player won
-* Include separate HTML / CSS / JavaScript files
-* Stick with KISS (Keep It Simple Stupid) principles
-* Use Javascript for DOM manipulation
-* Deploy your game online, where the rest of the world can access it
-* Use semantic markup for HTML and CSS (adhere to best practices)
+- [x] Render a game in the browser
+- [x] Switch turns between more than one player
+- [x] Design logic for winning & visually display which player won
+- [x] Include separate HTML / CSS / JavaScript files
+- [x] Stick with KISS (Keep It Simple Stupid) principles
+- [x] Use Javascript for DOM manipulation
+- [x] Deploy your game online, where the rest of the world can access it
+- [x] Use semantic markup for HTML and CSS (adhere to best practices)
 
 ## Technology Used
 * HTML
@@ -36,36 +32,34 @@ Assets:
 * End conditions: Either a player wins/ties OR there are no more empty squares available
 * Win condition: A player wins if they have 3 of their symbols in either a row - either horizontally, vertically or diagonally 
 
-### Basic UI Layout (Wireframe) - TBC
-![alt text](/images/basic-layout-wireframe.jpg)
+### Basic UI Layout 
+- Initial Wireframe Design
+![Wireframe](/images/basic-layout-wireframe.jpg)
+- Final design
+    - Mobile:
+![Mobile Design](/images/game-design-mobile)
+    - Desktop
+![Desktop Design](/images/game-design-desktop)
 
 ### Game Logic (high level):
-* Check win condition: (use an Array with the index of the win conditions). Basic premise for winning is:
-    * If row 1 matches; else
-    * If row 2 matches: else
-    * If row 3 matches: else
-    * If column 1 matches: else
-    * If column 2 matches: else
-    * If column 3 matches: else
-    * If diagonal (right to left) matches: else
+* Win conditions: 
+    * If row 1 matches
+    * If row 2 matches
+    * If row 3 matches
+    * If column 1 matches
+    * If column 2 matches
+    * If column 3 matches
+    * If diagonal (right to left) matches
     * If diagonal (left to right) matches
 * If win condition isn't triggered: check if all boxes are filled to trigger tie condition/end condition
 * Track active player
 * Get the active box that is selected
-* Store player choices (TBC - DOM or JS Object)
+* Store player choices
+* Store player choices
+* Allow player to change name
+* Allow player to change icon
 
-### Problem broken down (TBC - unordered):
-* Create a function for win condtion:
-    * Check if win conditions are met (3 in a row)
-    * Check if win conditions are met (3 in a column)
-    * Check if win conditions are met (3 diagonally)
-    * If win is triggered return the player that won otherwise return null
-* Create a function to add the active players token to chosen (empty) box
-* Add click event listeners to container div for the 3x3 grid (to utilise [bubbling](https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles))
-    * Use event.target to set or get the value of the clicked box/inner `div`
-    * Use logic to ensure an existing selection cannot be overwritten
-* Track active player using a variable
-* Track player tokens in an object
+
 
 
 ### Assumptions

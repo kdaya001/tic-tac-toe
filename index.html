@@ -16,7 +16,7 @@
             <header>
                 <h1>Tic Tac Toe</h1>
             </header>
-            <div class="topnav">
+            <nav class="topnav">
                 <div class="nav-padding" id="nav-links">
                     <a id="submit-name" class="active">Update Player Names</a>
                     <a id="submit-icons" class="active">Update Player Icon</a>
@@ -26,23 +26,23 @@
                     alt="nav-bar-button"
                     class="icon"
                 />
-            </div>
-            <div id="player-one">
+            </nav>
+            <section id="player-one">
                 <span id="player-one-name">Player One</span>:
                 <span id="player-one-points">0</span>
                 <br />
                 <br />
                 <span id="p-one-icon">X</span>
-            </div>
-            <div id="player-two">
+            </section>
+            <section id="player-two">
                 <span id="player-two-name">Player Two</span>:
                 <span id="player-two-points">0</span>
                 <br />
                 <br />
                 <span id="p-two-icon">O</span>
-            </div>
+            </section>
 
-            <div id="wrapper">
+            <section id="wrapper">
                 <div class="box" id="box-01"></div>
                 <div class="box" id="box-02"></div>
                 <div class="box" id="box-03"></div>
@@ -52,26 +52,26 @@
                 <div class="box" id="box-07"></div>
                 <div class="box" id="box-08"></div>
                 <div class="box" id="box-09"></div>
-            </div>
+            </section>
 
-            <div id="active-player-tracker">
+            <section id="active-player-tracker">
                 <h3 id="bottom-banner">
                     Current Player: <span id="active-player">Player One</span>
                 </h3>
-            </div>
-            <div id="button-nav">
+            </section>
+            <nav id="button-nav">
                 <button id="reset-board" type="button">Reset Board</button>
                 <button id="reset-score" type="button">Reset Score</button>
-            </div>
+            </nav>
 
-            <section class="socials">
+            <aside class="socials">
                 <a href="https://github.com/kdaya001/tic-tac-toe"><img src="images/github-icon.png" alt="github"/></a>
                 <a href="https://www.linkedin.com/in/karishma-daya/"><img src="images/linkedin-icon.png" alt="linkedin"/></a>
-            </footer>
+            </aside>
         </div>
 
-        <div id="popup-modal" class="modal">
-            <div class="modal-content-icon">
+        <section id="popup-modal" class="modal">
+            <section class="modal-content-icon">
                 <input
                     type="text"
                     id="player-one-icon"
@@ -88,9 +88,9 @@
                 <br />
                 <button class="submit-modal-icon">Submit</button>
                 <button class="close-modal">Close</button>
-            </div>
+            </section>
 
-            <div class="modal-content-name">
+            <section class="modal-content-name">
                 <input
                     type="text"
                     id="player-one-chosen-name"
@@ -105,8 +105,8 @@
                 <br />
                 <button class="submit-modal-name">Submit</button>
                 <button class="close-modal">Close</button>
-            </div>
-        </div>
+            </section>
+        </section>
 
 
 
