@@ -59,7 +59,7 @@ function checkDrawCondition() {
 }
 
 //performs the end game logic for either winner OR tie/draw
-function endGame(activePlayer = false, storedRefreshState = false) {
+function handleEndGame(activePlayer = false, storedRefreshState = false) {
     let winningPlayer;
 
     if (!activePlayer) {
@@ -95,6 +95,7 @@ function endGame(activePlayer = false, storedRefreshState = false) {
 //play the audio file for either draw or win condition 
 function playAudio(condition, storedRefreshState) {
     if(condition === 'win' && !storedRefreshState) {
+        const audioContext = new AudioContext();
         let winSFX = new Audio('./sounds/sfx-win.wav');
         winSFX.play();
     } else if (condition === 'draw' && !storedRefreshState) {
@@ -114,7 +115,7 @@ function updatePoints(winningPlayer) {
 }
 
 //logic for board reset
-function resetBoard() {
+function handleBoardReset() {
     for (box of boxes) {
         box.textContent = '';
         box.style.backgroundColor = null;
@@ -144,7 +145,6 @@ function updateBoxData(data) {
     para.classList.add('displayValue');
     return para;
 }
-
 
 //logic to update the DOM for the player details
 function updateDOM() {
@@ -223,7 +223,7 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
 }
 
 //logic for reseting player poins back to 0
-function resetPlayerPoints() {
+function handlePointsReset() {
     PLAYERS.playerOne.points = 0;
     PLAYERS.playerTwo.points = 0;
 }
@@ -246,11 +246,11 @@ function setupListeners() {
                 let activePlayerToken = getActivePlayer().token;
                 currentGameState[chosenIndex - 1] = activePlayerToken;
                 event.target.appendChild(updateBoxData(activePlayerToken));
- 
+
                 if (checkWinCondition()) {
-                    endGame(getActivePlayer().token);
+                    handleEndGame(getActivePlayer().token);
                 } else if (checkDrawCondition()) {
-                    endGame();
+                    handleEndGame();
                 } else {
                     updateActivePlayer();
                 }
@@ -261,13 +261,13 @@ function setupListeners() {
 
     const resetScore = document.getElementById('reset-score');
     resetScore.addEventListener('click', function () {
-        resetPlayerPoints();
+        handlePointsReset();
         updateDOM();
     });
 
     const resetBoardButton = document.getElementById('reset-board');
     resetBoardButton.addEventListener('click', function () {
-        resetBoard();
+        handleBoardReset();
     });
 
     const updateNameNav = document.getElementById('submit-name');
@@ -294,6 +294,8 @@ function setupListeners() {
             updateDOM();
             updateNavBar();
             updateElementDisplay(modal, 'none');
+            playerTwoNameInput.value = '';
+            playerOneNameInput.value = '';
         } else {
             alert('Enter a valid entry for both players');
         }
@@ -320,6 +322,8 @@ function setupListeners() {
             updateDOM();
             updateElementDisplay(modal, 'none');
             updateNavBar();
+            playerOneIconInput.value = '';
+            playerTwoIconInput.value = '';
         } else {
             alert('Enter a valid entry for both players!');
         }
@@ -336,12 +340,12 @@ function setupListeners() {
 
     const resetGame = document.getElementById('reset-game');
     resetGame.addEventListener('click', function () {
-        resetBoard();
+        handleBoardReset();
         PLAYERS.playerOne.name = 'Player One';
         PLAYERS.playerOne.token = 'X';
         PLAYERS.playerTwo.name = 'Player Two';
         PLAYERS.playerTwo.token = 'O';
-        resetPlayerPoints();
+        handlePointsReset();
         updateDOM();
         storeSession();
     });
@@ -372,9 +376,9 @@ if (sessionStorage.getItem('autosave')) {
     updateBoardIconState(PLAYERS.playerOne.token, PLAYERS.playerTwo.token);
 
     if (checkWinCondition(boxes, currentGameState)) {
-        endGame(getActivePlayer().token, storedRefreshState);
+        handleEndGame(getActivePlayer().token, storedRefreshState);
     } else if(checkDrawCondition(boxes)) {
-        endGame(false, storedRefreshState);
+        handleEndGame(false, storedRefreshState);
     }
     updateDOM();
 }

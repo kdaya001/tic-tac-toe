@@ -7,7 +7,7 @@ General Assembly Software Engineering Immersive - Project 1
 Assets:
 * Font: [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
 * Images: [Pressstart](https://pressstart.vip/)
-* Audio: [SFX](https://opengameart.org/content/512-sound-effects-8-bit-style)
+* Audio: [Open Game Art](https://opengameart.org/content/512-sound-effects-8-bit-style)
 
 ## Technical Requirements:
 - [x] Render a game in the browser
@@ -20,16 +20,23 @@ Assets:
 - [x] Use semantic markup for HTML and CSS (adhere to best practices)
 
 ## Technology Used
-* HTML
+* HTML 
 * CSS
-* Javascript
+    * Grid 
+    * Flexbox
+    * Animations
+    * Transitions
+* Javascript 
+    * DOM Manipulation
+    * Session Storage
+
 
 ## Planning
 ### Game Rules:
 * Players: 2 players (associated to 2 different tokens/icons)
-* Player board: The player board is a 3 x 3 grid
+* Player board: 3 x 3 grid
 * Player turn:
-    * The player chooses one of nine (unfilled) boxes to place their symbol in. Player turn then ends and the alternate player triggers player turn
+    * The player chooses one of nine (unfilled) boxes to place their symbol in. Player turn then ends and the alternate player becomes the active player
 * End conditions: Either a player wins OR there are no more empty squares available (tie/draw)
 * Win condition: A player wins if they have 3 of their symbols/tokens in either a row - either horizontally, vertically or diagonally 
 
