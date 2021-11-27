@@ -29,22 +29,13 @@ let winningState = false;
 const bottomBanner = document.getElementById('bottom-banner');
 const activePlayerColor = 'orange';
 const winnerColor = 'green';
-const playerOneDiv = document.getElementById('player-one');
-const playerTwoDiv = document.getElementById('player-two');
+const playerOneBox = document.getElementById('player-one');
+const playerTwoBox = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
 const resetBoardBtn = document.getElementById('reset-board');
 
-//creates the token for the active players choice
-function updateBoxData(data) {
-    const para = document.createElement('p');
-    const node = document.createTextNode(data);
-    para.appendChild(node);
-    para.classList.add('displayValue');
-    return para;
-}
-
 //check if any of the win conditions are triggered
-function checkEndWinningState(boxes, currentGameState) {
+function checkWinCondition(boxes) {
     for (condition of WINNING_CONDITIONS) {
         if (
             currentGameState[condition[0]] === getActivePlayer().token &&
@@ -62,27 +53,22 @@ function checkEndWinningState(boxes, currentGameState) {
 }
 
 //check if the game ends in a draw/tie
-function checkDrawState(boxes) {
-    for (index in boxes) {
-        if (boxes[index] === null) {
-            return false;
-        }
-    }
-    return true;
+function checkDrawCondition() {
+    return currentGameState.includes(null) ? false : true;
 }
 
 //performs the end game logic for either winner OR tie/draw
 function endGame(activePlayer = false, storedRefreshState = false) {
     let winningPlayer;
 
-    if (activePlayer === false) {
+    if (!activePlayer) {
         if (!storedRefreshState) {
             let drawSFX = new Audio('./sounds/sfx-draw.wav');
             drawSFX.play();
         }
         bottomBanner.textContent = `It's a draw`;
-        playerOneDiv.style.backgroundColor = winnerColor;
-        playerTwoDiv.style.backgroundColor = winnerColor;
+        playerOneBox.style.backgroundColor = winnerColor;
+        playerTwoBox.style.backgroundColor = winnerColor;
     } else {
         for (let player in PLAYERS) {
             if (!storedRefreshState) {
@@ -92,17 +78,17 @@ function endGame(activePlayer = false, storedRefreshState = false) {
             if (PLAYERS[player].token === activePlayer) {
                 winningPlayer = player;
                 if (player === 'playerOne') {
-                    playerOneDiv.style.backgroundColor = winnerColor;
-                    playerTwoDiv.style.backgroundColor = null;
+                    playerOneBox.style.backgroundColor = winnerColor;
+                    playerTwoBox.style.backgroundColor = null;
                 } else {
-                    playerTwoDiv.style.backgroundColor = winnerColor;
-                    playerOneDiv.style.backgroundColor = null;
+                    playerTwoBox.style.backgroundColor = winnerColor;
+                    playerOneBox.style.backgroundColor = null;
                 }
             }
         }
         bottomBanner.innerHTML = `<span id="active-player">${PLAYERS[winningPlayer].name}</span> wins`;
     }
-    resetBoardBtn.textContent = 'New Game';
+    resetBoardBtn.textContent = 'Play Again';
     winningState = true;
     bottomBanner.style.color = winnerColor;
     if (!storedRefreshState) {
@@ -138,12 +124,22 @@ function resetBoard() {
         currentGameState[index] = null;
     }
 
-    playerOneDiv.style.backgroundColor = null;
-    playerTwoDiv.style.backgroundColor = null;
+    playerOneBox.style.backgroundColor = null;
+    playerTwoBox.style.backgroundColor = null;
 
     resetBoardBtn.textContent = 'Reset Board';
     storeSession();
 }
+
+//creates the token for the active players choice
+function updateBoxData(data) {
+    const para = document.createElement('p');
+    const node = document.createTextNode(data);
+    para.appendChild(node);
+    para.classList.add('displayValue');
+    return para;
+}
+
 
 //logic to update the DOM for the player details
 function updateDOM() {
@@ -171,15 +167,15 @@ function updateActivePlayer() {
     if (PLAYERS['playerOne'].activePlayer) {
         PLAYERS['playerOne'].activePlayer = false;
         PLAYERS['playerTwo'].activePlayer = true;
-        playerOneDiv.style.backgroundColor = activePlayerColor;
-        playerTwoDiv.style.backgroundColor = null;
+        playerOneBox.style.backgroundColor = activePlayerColor;
+        playerTwoBox.style.backgroundColor = null;
         activePlayerUI.textContent = PLAYERS.playerTwo.name;
     } else {
         PLAYERS['playerTwo'].activePlayer = false;
         PLAYERS['playerOne'].activePlayer = true;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
-        playerTwoDiv.style.backgroundColor = activePlayerColor;
-        playerOneDiv.style.backgroundColor = null;
+        playerTwoBox.style.backgroundColor = activePlayerColor;
+        playerOneBox.style.backgroundColor = null;
     }
 }
 
@@ -251,22 +247,18 @@ function setupListeners() {
                 let activePlayerToken = getActivePlayer().token;
                 currentGameState[chosenIndex - 1] = activePlayerToken;
                 event.target.appendChild(updateBoxData(activePlayerToken));
-                storeSession();
 
                 const boxes = document.querySelectorAll('.box');
-                if (checkEndWinningState(boxes, currentGameState)) {
-                    setTimeout(function () {
-                        endGame(getActivePlayer().token);
-                    }, 1);
-                } else if (checkDrawState(currentGameState)) {
-                    setTimeout(function () {
-                        endGame();
-                    }, 1);
+                if (checkWinCondition(boxes)) {
+                    endGame(getActivePlayer().token);
+                } else if (checkDrawCondition()) {
+                    endGame();
                 } else {
                     updateActivePlayer();
                 }
             }
         }
+        storeSession();
     });
 
     const resetScore = document.getElementById('reset-score');
@@ -383,9 +375,9 @@ if (sessionStorage.getItem('autosave')) {
 
     updateBoardIconState(PLAYERS.playerOne.token, PLAYERS.playerTwo.token);
 
-    if (checkEndWinningState(boxes, currentGameState)) {
+    if (checkWinCondition(boxes, currentGameState)) {
         endGame(getActivePlayer().token, storedRefreshState);
-    } else if(checkDrawState(boxes)) {
+    } else if(checkDrawCondition(boxes)) {
         endGame(false, storedRefreshState);
     }
     updateDOM();
