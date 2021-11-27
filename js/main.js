@@ -27,8 +27,8 @@ const WINNING_CONDITIONS = [
 const currentGameState = [null, null, null, null, null, null, null, null, null];
 let winningState = false;
 const bottomBanner = document.getElementById('bottom-banner');
-const activePlayerColor = 'green';
-const winnerColor = 'red';
+const activePlayerColor = 'orange';
+const winnerColor = 'green';
 const playerOneDiv = document.getElementById('player-one');
 const playerTwoDiv = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
@@ -68,20 +68,24 @@ function checkDrawState(boxes) {
     return true;
 }
 
-function endGame(activePlayer = false) {
+function endGame(activePlayer = false, storedRefreshState = false) {
     let winningPlayer;
     
 
     if (activePlayer === false) {
-        let drawSFX = new Audio('./sounds/sfx-draw.wav');
-        drawSFX.play();
+        if(!storedRefreshState) {
+            let drawSFX = new Audio('./sounds/sfx-draw.wav');
+            drawSFX.play();
+        }
         bottomBanner.textContent = `It's a draw`;
         playerOneDiv.style.backgroundColor = winnerColor;
         playerTwoDiv.style.backgroundColor = winnerColor;
     } else {
         for (let player in PLAYERS) {
-            let winSFX = new Audio('./sounds/sfx-win.wav');
-            winSFX.play();
+            if(!storedRefreshState) {
+                let winSFX = new Audio('./sounds/sfx-win.wav');
+                winSFX.play();
+            }
             if (PLAYERS[player].token === activePlayer) {
                 winningPlayer = player;
                 if (player === 'playerOne') {
@@ -94,12 +98,14 @@ function endGame(activePlayer = false) {
             }
         }
         bottomBanner.innerHTML = `<span id="active-player">${PLAYERS[winningPlayer].name}</span> wins`;
-
-        resetBoardBtn.textContent = "New Game";
     }
+    resetBoardBtn.textContent = "New Game";
     winningState = true;
     bottomBanner.style.color = winnerColor;
-    updatePoints(winningPlayer);
+    if(!storedRefreshState) {
+        updatePoints(winningPlayer);
+    }
+    storeSession();
 }
 
 function updatePoints(winningPlayer) {
@@ -131,6 +137,7 @@ function resetBoard() {
     playerTwoDiv.style.backgroundColor = null;
 
     resetBoardBtn.textContent = "Reset Board";
+    storeSession();
 }
 
 function updateDOM() {
@@ -147,6 +154,7 @@ function updateDOM() {
         document.getElementById('active-player').textContent =
             getActivePlayer().name;
     }
+    storeSession();
 }
 
 function updateActivePlayer() {
@@ -222,6 +230,7 @@ function setupListeners() {
                     let activePlayerToken = getActivePlayer().token;
                     currentGameState[chosenIndex - 1] = activePlayerToken;
                     event.target.appendChild(updateBoxData(activePlayerToken));
+                    storeSession();
 
                     const boxes = document.querySelectorAll('.box');
                     if (checkEndWinningState(boxes, currentGameState)) {
@@ -318,6 +327,34 @@ function setupListeners() {
             updateNavBar();
         });
     }
+}
+
+function storeSession() {
+    sessionStorage.setItem('players', JSON.stringify(PLAYERS));
+    sessionStorage.setItem('gameState', JSON.stringify(currentGameState));
+    sessionStorage.setItem('refreshState', true);
+    sessionStorage.setItem('autosave', true);
+}
+
+if(sessionStorage.getItem('autosave')) {
+    let storedPlayerSessionData = JSON.parse(sessionStorage.getItem('players'));
+    let storedGameState = JSON.parse(sessionStorage.getItem('gameState'));
+    const boxes = document.querySelectorAll('.box');
+    let storedRefreshState = sessionStorage.getItem('refreshState');
+
+    for(let item in storedPlayerSessionData) {
+        PLAYERS[item] = storedPlayerSessionData[item];
+    }
+
+    for(let index in storedGameState) {
+        currentGameState[index] = storedGameState[index];
+    }
+
+    updateBoardIconState(PLAYERS.playerOne.token, PLAYERS.playerTwo.token);
+    if(checkEndWinningState(boxes, currentGameState)) {
+        endGame(getActivePlayer().token, storedRefreshState);
+    }
+    updateDOM();
 }
 
 setupListeners();
