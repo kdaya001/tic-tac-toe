@@ -70,10 +70,9 @@ function checkDrawState(boxes) {
 
 function endGame(activePlayer = false, storedRefreshState = false) {
     let winningPlayer;
-    
 
     if (activePlayer === false) {
-        if(!storedRefreshState) {
+        if (!storedRefreshState) {
             let drawSFX = new Audio('./sounds/sfx-draw.wav');
             drawSFX.play();
         }
@@ -82,7 +81,7 @@ function endGame(activePlayer = false, storedRefreshState = false) {
         playerTwoDiv.style.backgroundColor = winnerColor;
     } else {
         for (let player in PLAYERS) {
-            if(!storedRefreshState) {
+            if (!storedRefreshState) {
                 let winSFX = new Audio('./sounds/sfx-win.wav');
                 winSFX.play();
             }
@@ -99,10 +98,10 @@ function endGame(activePlayer = false, storedRefreshState = false) {
         }
         bottomBanner.innerHTML = `<span id="active-player">${PLAYERS[winningPlayer].name}</span> wins`;
     }
-    resetBoardBtn.textContent = "New Game";
+    resetBoardBtn.textContent = 'New Game';
     winningState = true;
     bottomBanner.style.color = winnerColor;
-    if(!storedRefreshState) {
+    if (!storedRefreshState) {
         updatePoints(winningPlayer);
     }
     storeSession();
@@ -136,7 +135,7 @@ function resetBoard() {
     playerOneDiv.style.backgroundColor = null;
     playerTwoDiv.style.backgroundColor = null;
 
-    resetBoardBtn.textContent = "Reset Board";
+    resetBoardBtn.textContent = 'Reset Board';
     storeSession();
 }
 
@@ -149,6 +148,8 @@ function updateDOM() {
         PLAYERS.playerOne.name;
     document.getElementById('player-two-name').textContent =
         PLAYERS.playerTwo.name;
+    document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
+    document.getElementById('p-two-icon').textContent = PLAYERS.playerTwo.token;
 
     if (!winningState) {
         document.getElementById('active-player').textContent =
@@ -203,8 +204,10 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
             let replaceValue;
             if (curBox === PLAYERS.playerOne.token) {
                 replaceValue = playerOneNewIcon;
+                currentGameState[index] = playerOneNewIcon;
             } else {
                 replaceValue = playerTwoNewIcon;
+                currentGameState[index] = playerTwoNewIcon;
             }
             boxes[index].textContent = '';
             boxes[index].appendChild(updateBoxData(replaceValue));
@@ -322,6 +325,7 @@ function setupListeners() {
         } else {
             alert('Enter a valid entry for both players!');
         }
+        storeSession();
     });
 
     const closeModalBtn = document.querySelectorAll('.close-modal');
@@ -335,10 +339,10 @@ function setupListeners() {
     const resetGame = document.getElementById('reset-game');
     resetGame.addEventListener('click', function () {
         resetBoard();
-        PLAYERS.playerOne.name = "Player One";
-        PLAYERS.playerOne.token = "X";
-        PLAYERS.playerTwo.name = "Player Two";
-        PLAYERS.playerTwo.token = "O";
+        PLAYERS.playerOne.name = 'Player One';
+        PLAYERS.playerOne.token = 'X';
+        PLAYERS.playerTwo.name = 'Player Two';
+        PLAYERS.playerTwo.token = 'O';
         resetPlayerPoints();
         updateDOM();
         storeSession();
@@ -352,22 +356,23 @@ function storeSession() {
     sessionStorage.setItem('autosave', true);
 }
 
-if(sessionStorage.getItem('autosave')) {
+if (sessionStorage.getItem('autosave')) {
     let storedPlayerSessionData = JSON.parse(sessionStorage.getItem('players'));
     let storedGameState = JSON.parse(sessionStorage.getItem('gameState'));
     const boxes = document.querySelectorAll('.box');
     let storedRefreshState = sessionStorage.getItem('refreshState');
 
-    for(let item in storedPlayerSessionData) {
+    for (let item in storedPlayerSessionData) {
         PLAYERS[item] = storedPlayerSessionData[item];
     }
 
-    for(let index in storedGameState) {
+    for (let index in storedGameState) {
         currentGameState[index] = storedGameState[index];
     }
 
     updateBoardIconState(PLAYERS.playerOne.token, PLAYERS.playerTwo.token);
-    if(checkEndWinningState(boxes, currentGameState)) {
+
+    if (checkEndWinningState(boxes, currentGameState)) {
         endGame(getActivePlayer().token, storedRefreshState);
     }
     updateDOM();
