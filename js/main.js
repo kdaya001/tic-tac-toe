@@ -212,6 +212,11 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
     }
 }
 
+function resetPlayerPoints() {
+    PLAYERS.playerOne.points = 0;
+    PLAYERS.playerTwo.points = 0;
+}
+
 function setupListeners() {
     const modalIcon = document.querySelector('.modal-content-icon');
     const modalName = document.querySelector('.modal-content-name');
@@ -251,8 +256,7 @@ function setupListeners() {
 
     const resetScore = document.getElementById('reset-score');
     resetScore.addEventListener('click', function () {
-        PLAYERS.playerOne.points = 0;
-        PLAYERS.playerTwo.points = 0;
+        resetPlayerPoints();
         resetBoard();
         updateDOM();
     });
@@ -327,6 +331,18 @@ function setupListeners() {
             updateNavBar();
         });
     }
+
+    const resetGame = document.getElementById('reset-game');
+    resetGame.addEventListener('click', function () {
+        resetBoard();
+        PLAYERS.playerOne.name = "Player One";
+        PLAYERS.playerOne.token = "X";
+        PLAYERS.playerTwo.name = "Player Two";
+        PLAYERS.playerTwo.token = "O";
+        resetPlayerPoints();
+        updateDOM();
+        storeSession();
+    });
 }
 
 function storeSession() {
