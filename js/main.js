@@ -134,6 +134,7 @@ function handleBoardReset() {
     playerTwoBox.style.backgroundColor = null;
 
     resetBoardBtn.textContent = 'Reset Board';
+    updateActivePlayerColor();
     storeSession();
 }
 
@@ -167,17 +168,15 @@ function updateActivePlayer() {
     if (PLAYERS['playerOne'].activePlayer) {
         PLAYERS['playerOne'].activePlayer = false;
         PLAYERS['playerTwo'].activePlayer = true;
-        playerOneBox.style.backgroundColor = activePlayerColor;
-        playerTwoBox.style.backgroundColor = null;
         activePlayerUI.textContent = PLAYERS.playerTwo.name;
     } else {
         PLAYERS['playerTwo'].activePlayer = false;
         PLAYERS['playerOne'].activePlayer = true;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
-        playerTwoBox.style.backgroundColor = activePlayerColor;
-        playerOneBox.style.backgroundColor = null;
     }
+    updateActivePlayerColor();
 }
+
 
 //get the active player
 function getActivePlayer() {
@@ -226,6 +225,17 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
 function handlePointsReset() {
     PLAYERS.playerOne.points = 0;
     PLAYERS.playerTwo.points = 0;
+}
+
+function updateActivePlayerColor() {
+    const activePlayerUI = document.querySelector('#active-player');
+    if(PLAYERS['playerTwo'].activePlayer) {
+        playerTwoBox.style.backgroundColor = activePlayerColor;
+        playerOneBox.style.backgroundColor = null;
+    } else {
+        playerOneBox.style.backgroundColor = activePlayerColor;
+        playerTwoBox.style.backgroundColor = null;
+    }
 }
 
 //initialisation/setup function that is called on load
@@ -346,6 +356,7 @@ function setupListeners() {
         PLAYERS.playerTwo.name = 'Player Two';
         PLAYERS.playerTwo.token = 'O';
         handlePointsReset();
+        updateActivePlayerColor();
         updateDOM();
         storeSession();
     });
@@ -379,6 +390,8 @@ if (sessionStorage.getItem('autosave')) {
         handleEndGame(getActivePlayer().token, storedRefreshState);
     } else if(checkDrawCondition(boxes)) {
         handleEndGame(false, storedRefreshState);
+    } else {
+        updateActivePlayerColor();
     }
     updateDOM();
 }
