@@ -355,7 +355,6 @@ function setupListeners() {
         PLAYERS.playerTwo.name = 'Player Two';
         PLAYERS.playerTwo.token = 'O';
         handlePointsReset();
-        handleActivePlayerColor();
         updateDOM();
         storeSession();
     });
