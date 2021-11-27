@@ -385,6 +385,8 @@ if (sessionStorage.getItem('autosave')) {
 
     if (checkEndWinningState(boxes, currentGameState)) {
         endGame(getActivePlayer().token, storedRefreshState);
+    } else if(checkDrawState(boxes)) {
+        endGame(false, storedRefreshState);
     }
     updateDOM();
 }
