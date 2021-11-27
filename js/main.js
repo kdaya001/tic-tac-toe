@@ -34,6 +34,7 @@ const playerTwoDiv = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
 const resetBoardBtn = document.getElementById('reset-board');
 
+//creates the token for the active players choice
 function updateBoxData(data) {
     const para = document.createElement('p');
     const node = document.createTextNode(data);
@@ -42,6 +43,7 @@ function updateBoxData(data) {
     return para;
 }
 
+//check if any of the win conditions are triggered
 function checkEndWinningState(boxes, currentGameState) {
     for (condition of WINNING_CONDITIONS) {
         if (
@@ -59,6 +61,7 @@ function checkEndWinningState(boxes, currentGameState) {
     return false;
 }
 
+//check if the game ends in a draw/tie
 function checkDrawState(boxes) {
     for (index in boxes) {
         if (boxes[index] === null) {
@@ -68,6 +71,7 @@ function checkDrawState(boxes) {
     return true;
 }
 
+//performs the end game logic for either winner OR tie/draw
 function endGame(activePlayer = false, storedRefreshState = false) {
     let winningPlayer;
 
@@ -107,6 +111,7 @@ function endGame(activePlayer = false, storedRefreshState = false) {
     storeSession();
 }
 
+//adds a point to the winner
 function updatePoints(winningPlayer) {
     if (winningPlayer === 'playerOne') {
         PLAYERS.playerOne.points += 1;
@@ -116,6 +121,7 @@ function updatePoints(winningPlayer) {
     updateDOM();
 }
 
+//logic for board reset
 function resetBoard() {
     const boxes = document.querySelectorAll('.box');
     for (box of boxes) {
@@ -139,6 +145,7 @@ function resetBoard() {
     storeSession();
 }
 
+//logic to update the DOM for the player details
 function updateDOM() {
     document.getElementById('player-one-points').textContent =
         PLAYERS.playerOne.points;
@@ -158,6 +165,7 @@ function updateDOM() {
     storeSession();
 }
 
+//Update active player status
 function updateActivePlayer() {
     const activePlayerUI = document.querySelector('#active-player');
     if (PLAYERS['playerOne'].activePlayer) {
@@ -175,6 +183,7 @@ function updateActivePlayer() {
     }
 }
 
+//get the active player
 function getActivePlayer() {
     for (let player in PLAYERS) {
         if (PLAYERS[player].activePlayer) {
@@ -183,6 +192,7 @@ function getActivePlayer() {
     }
 }
 
+//either hide or display the hamburger navigation bar links
 function updateNavBar() {
     let navBar = document.getElementById('nav-links');
     if (navBar.style.display === 'block') {
@@ -192,10 +202,12 @@ function updateNavBar() {
     }
 }
 
+//function for updating the display state of any element
 function updateElementDisplay(e, state) {
     e.style.display = state;
 }
 
+//logic for updating the game board icons
 function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
     const boxes = document.querySelectorAll('.box');
     for (let index in currentGameState) {
@@ -215,11 +227,13 @@ function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
     }
 }
 
+//logic for reseting player poins back to 0
 function resetPlayerPoints() {
     PLAYERS.playerOne.points = 0;
     PLAYERS.playerTwo.points = 0;
 }
 
+//initialisation/setup function that is called on load
 function setupListeners() {
     const modalIcon = document.querySelector('.modal-content-icon');
     const modalName = document.querySelector('.modal-content-name');
@@ -231,27 +245,25 @@ function setupListeners() {
 
     const boxWrapper = document.querySelector('#wrapper');
     boxWrapper.addEventListener('click', function (event) {
-        if (event.target.classList.contains('box')) {
-            if (!winningState) {
-                if (event.target.textContent === '') {
-                    let chosenIndex = Number(event.target.id.slice(-2));
-                    let activePlayerToken = getActivePlayer().token;
-                    currentGameState[chosenIndex - 1] = activePlayerToken;
-                    event.target.appendChild(updateBoxData(activePlayerToken));
-                    storeSession();
+        if (event.target.classList.contains('box') && !winningState) {
+            if (event.target.textContent === '') {
+                let chosenIndex = Number(event.target.id.slice(-2));
+                let activePlayerToken = getActivePlayer().token;
+                currentGameState[chosenIndex - 1] = activePlayerToken;
+                event.target.appendChild(updateBoxData(activePlayerToken));
+                storeSession();
 
-                    const boxes = document.querySelectorAll('.box');
-                    if (checkEndWinningState(boxes, currentGameState)) {
-                        setTimeout(function () {
-                            endGame(getActivePlayer().token);
-                        }, 1);
-                    } else if (checkDrawState(currentGameState)) {
-                        setTimeout(function () {
-                            endGame();
-                        }, 1);
-                    } else {
-                        updateActivePlayer();
-                    }
+                const boxes = document.querySelectorAll('.box');
+                if (checkEndWinningState(boxes, currentGameState)) {
+                    setTimeout(function () {
+                        endGame(getActivePlayer().token);
+                    }, 1);
+                } else if (checkDrawState(currentGameState)) {
+                    setTimeout(function () {
+                        endGame();
+                    }, 1);
+                } else {
+                    updateActivePlayer();
                 }
             }
         }
@@ -309,17 +321,14 @@ function setupListeners() {
     updateIconBtn.addEventListener('click', function () {
         const playerOneIconInput = document.getElementById('player-one-icon');
         const playerTwoIconInput = document.getElementById('player-two-icon');
-        if (playerOneIconInput.value !== '' && playerTwoIconInput !== '') {
+        if (playerOneIconInput.value !== '' && playerTwoIconInput.value !== '') {
             updateBoardIconState(
                 playerOneIconInput.value,
                 playerTwoIconInput.value
             );
             PLAYERS.playerOne.token = playerOneIconInput.value;
             PLAYERS.playerTwo.token = playerTwoIconInput.value;
-            document.getElementById('p-one-icon').textContent =
-                PLAYERS.playerOne.token;
-            document.getElementById('p-two-icon').textContent =
-                PLAYERS.playerTwo.token;
+            updateDOM();
             updateElementDisplay(modal, 'none');
             updateNavBar();
         } else {
@@ -349,6 +358,7 @@ function setupListeners() {
     });
 }
 
+//function for session storage
 function storeSession() {
     sessionStorage.setItem('players', JSON.stringify(PLAYERS));
     sessionStorage.setItem('gameState', JSON.stringify(currentGameState));
@@ -356,6 +366,7 @@ function storeSession() {
     sessionStorage.setItem('autosave', true);
 }
 
+//logic for retriving session storage on reload
 if (sessionStorage.getItem('autosave')) {
     let storedPlayerSessionData = JSON.parse(sessionStorage.getItem('players'));
     let storedGameState = JSON.parse(sessionStorage.getItem('gameState'));
