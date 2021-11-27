@@ -33,9 +33,10 @@ const playerOneBox = document.getElementById('player-one');
 const playerTwoBox = document.getElementById('player-two');
 const modal = document.getElementById('popup-modal');
 const resetBoardBtn = document.getElementById('reset-board');
+const boxes = document.querySelectorAll('.box');
 
 //check if any of the win conditions are triggered
-function checkWinCondition(boxes) {
+function checkWinCondition() {
     for (condition of WINNING_CONDITIONS) {
         if (
             currentGameState[condition[0]] === getActivePlayer().token &&
@@ -62,19 +63,13 @@ function endGame(activePlayer = false, storedRefreshState = false) {
     let winningPlayer;
 
     if (!activePlayer) {
-        if (!storedRefreshState) {
-            let drawSFX = new Audio('./sounds/sfx-draw.wav');
-            drawSFX.play();
-        }
+        playAudio('draw', storedRefreshState);
         bottomBanner.textContent = `It's a draw`;
         playerOneBox.style.backgroundColor = winnerColor;
         playerTwoBox.style.backgroundColor = winnerColor;
     } else {
+        playAudio('win', storedRefreshState)
         for (let player in PLAYERS) {
-            if (!storedRefreshState) {
-                let winSFX = new Audio('./sounds/sfx-win.wav');
-                winSFX.play();
-            }
             if (PLAYERS[player].token === activePlayer) {
                 winningPlayer = player;
                 if (player === 'playerOne') {
@@ -97,6 +92,17 @@ function endGame(activePlayer = false, storedRefreshState = false) {
     storeSession();
 }
 
+//play the audio file for either draw or win condition 
+function playAudio(condition, storedRefreshState) {
+    if(condition === 'win' && !storedRefreshState) {
+        let winSFX = new Audio('./sounds/sfx-win.wav');
+        winSFX.play();
+    } else if (condition === 'draw' && !storedRefreshState) {
+        let drawSFX = new Audio('./sounds/sfx-draw.wav');
+        drawSFX.play();
+    }
+}
+
 //adds a point to the winner
 function updatePoints(winningPlayer) {
     if (winningPlayer === 'playerOne') {
@@ -109,7 +115,6 @@ function updatePoints(winningPlayer) {
 
 //logic for board reset
 function resetBoard() {
-    const boxes = document.querySelectorAll('.box');
     for (box of boxes) {
         box.textContent = '';
         box.style.backgroundColor = null;
@@ -143,20 +148,15 @@ function updateBoxData(data) {
 
 //logic to update the DOM for the player details
 function updateDOM() {
-    document.getElementById('player-one-points').textContent =
-        PLAYERS.playerOne.points;
-    document.getElementById('player-two-points').textContent =
-        PLAYERS.playerTwo.points;
-    document.getElementById('player-one-name').textContent =
-        PLAYERS.playerOne.name;
-    document.getElementById('player-two-name').textContent =
-        PLAYERS.playerTwo.name;
+    document.getElementById('player-one-points').textContent = PLAYERS.playerOne.points;
+    document.getElementById('player-two-points').textContent = PLAYERS.playerTwo.points;
+    document.getElementById('player-one-name').textContent = PLAYERS.playerOne.name;
+    document.getElementById('player-two-name').textContent = PLAYERS.playerTwo.name;
     document.getElementById('p-one-icon').textContent = PLAYERS.playerOne.token;
     document.getElementById('p-two-icon').textContent = PLAYERS.playerTwo.token;
 
     if (!winningState) {
-        document.getElementById('active-player').textContent =
-            getActivePlayer().name;
+        document.getElementById('active-player').textContent = getActivePlayer().name;
     }
     storeSession();
 }
@@ -205,7 +205,6 @@ function updateElementDisplay(e, state) {
 
 //logic for updating the game board icons
 function updateBoardIconState(playerOneNewIcon, playerTwoNewIcon) {
-    const boxes = document.querySelectorAll('.box');
     for (let index in currentGameState) {
         const curBox = currentGameState[index];
         if (curBox !== null) {
@@ -247,9 +246,8 @@ function setupListeners() {
                 let activePlayerToken = getActivePlayer().token;
                 currentGameState[chosenIndex - 1] = activePlayerToken;
                 event.target.appendChild(updateBoxData(activePlayerToken));
-
-                const boxes = document.querySelectorAll('.box');
-                if (checkWinCondition(boxes)) {
+ 
+                if (checkWinCondition()) {
                     endGame(getActivePlayer().token);
                 } else if (checkDrawCondition()) {
                     endGame();
@@ -264,7 +262,6 @@ function setupListeners() {
     const resetScore = document.getElementById('reset-score');
     resetScore.addEventListener('click', function () {
         resetPlayerPoints();
-        resetBoard();
         updateDOM();
     });
 
@@ -362,7 +359,6 @@ function storeSession() {
 if (sessionStorage.getItem('autosave')) {
     let storedPlayerSessionData = JSON.parse(sessionStorage.getItem('players'));
     let storedGameState = JSON.parse(sessionStorage.getItem('gameState'));
-    const boxes = document.querySelectorAll('.box');
     let storedRefreshState = sessionStorage.getItem('refreshState');
 
     for (let item in storedPlayerSessionData) {
