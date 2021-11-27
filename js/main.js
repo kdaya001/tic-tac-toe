@@ -134,7 +134,7 @@ function handleBoardReset() {
     playerTwoBox.style.backgroundColor = null;
 
     resetBoardBtn.textContent = 'Reset Board';
-    updateActivePlayerColor();
+    handleActivePlayerColor();
     storeSession();
 }
 
@@ -174,7 +174,7 @@ function updateActivePlayer() {
         PLAYERS['playerOne'].activePlayer = true;
         activePlayerUI.textContent = PLAYERS.playerOne.name;
     }
-    updateActivePlayerColor();
+    handleActivePlayerColor();
 }
 
 
@@ -227,8 +227,7 @@ function handlePointsReset() {
     PLAYERS.playerTwo.points = 0;
 }
 
-function updateActivePlayerColor() {
-    const activePlayerUI = document.querySelector('#active-player');
+function handleActivePlayerColor() {
     if(PLAYERS['playerTwo'].activePlayer) {
         playerTwoBox.style.backgroundColor = activePlayerColor;
         playerOneBox.style.backgroundColor = null;
@@ -356,7 +355,7 @@ function setupListeners() {
         PLAYERS.playerTwo.name = 'Player Two';
         PLAYERS.playerTwo.token = 'O';
         handlePointsReset();
-        updateActivePlayerColor();
+        handleActivePlayerColor();
         updateDOM();
         storeSession();
     });
@@ -391,7 +390,7 @@ if (sessionStorage.getItem('autosave')) {
     } else if(checkDrawCondition(boxes)) {
         handleEndGame(false, storedRefreshState);
     } else {
-        updateActivePlayerColor();
+        handleActivePlayerColor();
     }
     updateDOM();
 }
