@@ -3,9 +3,10 @@ body * {
 }
 
 body {
-    background-color: rgb(152, 218, 196);
+    background-color: rgb(123, 175, 215);
     font-family: 'Press Start 2P', cursive;
     background-image: url("../images/background.png");
+    background-repeat: no-repeat;
 }
 
 button {
